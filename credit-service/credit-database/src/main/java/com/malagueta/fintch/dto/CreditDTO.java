@@ -20,9 +20,11 @@ public class CreditDTO {
     public static CreditEntity convertToEntity(Credito creditoRow) {
         CreditEntity creditEntity= CreditEntity.builder()
                 .id(creditoRow.getId())
-                .cliente(null)
+                .cliente(ClienteDTO.convertRowToEntity(creditoRow.getCliente()))
                 .proxima_Prestacao(creditoRow.getProxima_Prestacao())
-                .doDate(ZonedDateTime.now()).build();
+                .doDate(ZonedDateTime.now())
+                .producto(DTOProduct.convertToEntity(creditoRow.getProducto()))
+                .build();
         return creditEntity;
     }
 

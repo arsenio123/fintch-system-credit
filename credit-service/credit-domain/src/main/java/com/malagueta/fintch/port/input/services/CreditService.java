@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public interface CreditService {
-    public CreditEntity creatCredit(CreditEntity credit, @NotNull CreditRepository repository);
+    public CreditEntity creatCredit(CreditEntity credit);
 
     List<CreditEntity> findByCreditoWithDownPagination(CreditEntity credito, int records,  @NotNull CreditRepository repository);
 }

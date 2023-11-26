@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@ToString
+//@ToString
 public enum ErrorCatalog {
 
     LICENSA_EXPIRADA("LCNS_001","Licensa expirada contacte Loan service support para mais detalhes"),
@@ -14,7 +14,8 @@ public enum ErrorCatalog {
     CREDITO_CLIENT_MAST_EXIST("CRED003","Selecione um Cliente para o Credito"),
     EXPIRED_PRODUCT_CANT_BE_NORMAL("PROD001","Producto Expirado nao pode voltar ao normal") ,
     NORMAL_PRODUCT_CANT_BE_PENDING("PROD002","Productos no estado Pendentes nao podem voltar a estar Normal"),
-    CAPITAL_NAO_PODE_SER_INFERIOS_AO_MIN_PRODUCOT("CPTOD001","Capital nao pode ser inferior a valor do producto associado");
+    CAPITAL_NAO_PODE_SER_INFERIOS_AO_MIN_PRODUCOT("CPTOD001","Capital nao pode ser inferior a valor do producto associado"),
+     CREDITO_CLIENT_CANT_BE_NULL("CRED003","Indica um cliente para o credito");
     @Getter
     private final String code;
     @Getter
@@ -23,6 +24,17 @@ public enum ErrorCatalog {
 
         this.code=code;
         this.message=message;
+    }
+    @Override
+    public String toString(){
+        StringBuilder builder=new StringBuilder();
+        builder.append("{");
+        builder.append("\"code\":\"");
+        builder.append(code);
+        builder.append("\", \"message\":\"");
+        builder.append(message);
+        builder.append("\"}");
+        return builder.toString();
     }
 
 }

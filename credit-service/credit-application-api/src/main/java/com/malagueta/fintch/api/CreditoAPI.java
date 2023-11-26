@@ -1,17 +1,18 @@
 package com.malagueta.fintch.api;
 
+import com.malagueta.fintch.adapter.ClienteRepositoryImpl;
 import com.malagueta.fintch.domain_service.value.CreditoSatus;
 import com.malagueta.fintch.port.input.services.CreditService;
 import com.malagueta.fintch.domain_service.impl.CreditServiceImpl;
 import com.malagueta.fintch.entity.CreditEntity;
-import com.malagueta.fintch.port.output.repository.CreditRepository;
+import com.malagueta.fintch.port.output.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -19,26 +20,49 @@ public class CreditoAPI {
 
     private static Logger log= LoggerFactory.getLogger(CreditoAPI.class);
     //Deve ser colocado on fly
-    private CreditService creditoService=new CreditServiceImpl();
 
-    private  CreditRepository repository;
+   // @Autowired
+    private  CreditRepository creditRepository;
+    private CreditService creditoService;
+    //@Autowired
+    private CapitalRepository capitalRepository;
+    //@Autowired
+    private IntrestRepository intrestRepository;
+    //@Autowired
+    private ClienteRepository clienteRepository;
+    //@Autowired
+    private ProductoRepository productoRepository;
 
-    public CreditoAPI(CreditRepository repository){
-        this.repository=repository;
+
+    public CreditoAPI(CreditRepository creditRepository,
+                      CapitalRepository capitalRepository,
+                      IntrestRepository intrestRepository,
+                      ClienteRepository clienteRepository,
+                      ProductoRepository productoRepository){
+        this.capitalRepository=capitalRepository;
+        this.intrestRepository=intrestRepository;
+        this.creditRepository=creditRepository;
+        this.productoRepository=productoRepository;
+
+        this.creditoService=new CreditServiceImpl(creditRepository,
+                capitalRepository,
+                intrestRepository,
+                clienteRepository,
+                productoRepository);
     }
 
     @CrossOrigin
-    @PostMapping("MS/credito/creat")
+    @PostMapping("credito/creat")
     public CreditEntity createCredito(@RequestBody CreditEntity creditEntity){
         log.debug(creditEntity.toString());
-         creditEntity= creditoService.creatCredit(creditEntity, repository);
+         creditEntity= creditoService.creatCredit(creditEntity);
         return creditEntity;
     }
     @PostMapping("credito/atualiza")
     @CrossOrigin
     public CreditEntity atualizarCredito(@RequestBody CreditEntity creditEntity){
 
-        return creditEntity= creditoService.creatCredit(creditEntity, repository);
+        return creditEntity= creditoService.creatCredit(creditEntity);
     }
 
 /*
@@ -108,7 +132,7 @@ public class CreditoAPI {
                     .creatDate(initDate)
                     .build();
 
-            return creditoService.findByCreditoWithDownPagination(credito,records, repository) ;
+            return creditoService.findByCreditoWithDownPagination(credito,records, creditRepository) ;
         }catch (Exception ex){
             log.error(ex.getMessage());
             throw ex;

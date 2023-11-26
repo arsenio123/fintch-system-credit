@@ -23,7 +23,7 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     @Override
     public ClienteEntity findById(Long id) {
-        return ClienteDTO.convertRowToEntity(clienteRepositoryJpa.findById(id).get());
+        return ClienteDTO.convertRowToEntity(clienteRepositoryJpa.findById(id).orElse(null));
     }
 
     public ClienteEntity save(ClienteEntity entity){

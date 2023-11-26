@@ -1,6 +1,7 @@
 package com.malagueta.fintch.adapter;
 
 import com.malagueta.fintch.dto.CreditDTO;
+import com.malagueta.fintch.entity.ClienteEntity;
 import com.malagueta.fintch.entity.CreditEntity;
 import com.malagueta.fintch.port.output.repository.CreditRepository;
 import com.malagueta.fintch.repository.GenericJDBCRepository;
@@ -8,13 +9,14 @@ import com.malagueta.fintch.repository.impl.CreditoJDBCRepositoryImpl;
 import com.malagueta.fintch.repository.impl.search.CreditRepositoryJPA;
 import com.malagueta.fintch.tables.Credito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Service
+@Repository
 public class CreditRepositoryImpl extends GenericJDBCRepository<Credito> implements CreditRepository {
 
+    @Autowired
 private CreditRepositoryJPA repository;
 
 @Autowired
@@ -31,5 +33,23 @@ private CreditoJDBCRepositoryImpl creditoJDBCRepository;
     public List<CreditEntity> findByCreditoWithDownPagination(CreditEntity credito, int records) {
        List<Credito> creditos=  creditoJDBCRepository.findCreditoWithPaginationPrevies(CreditDTO.convertToTable(credito), records);
         return CreditDTO.convertToEntity(creditos);
+    }
+
+    @Override
+    public CreditEntity presiste(CreditEntity creditEntity) {
+        Credito creditRow=CreditDTO.convertToTable(creditEntity);
+
+        Credito percistedCredit=creditoJDBCRepository.saveUpdate(creditRow);
+        return CreditDTO.convertToEntity(percistedCredit);
+    }
+
+    @Override
+    public CreditEntity save(CreditEntity credit) {
+        return null;
+    }
+
+    @Override
+    public List<CreditEntity> findOpenCredit(ClienteEntity cliente) {
+        return null;
     }
 }
