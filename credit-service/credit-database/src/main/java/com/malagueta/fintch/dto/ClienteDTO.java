@@ -21,6 +21,8 @@ public class ClienteDTO {
             clienteEntity.setMorada(cliente.getMorada());
             clienteEntity.setRendimento(cliente.getRendimento());
             clienteEntity.setTelefone(cliente.getTelefone());
+            clienteEntity.setSetor(cliente.getSetor());
+            clienteEntity.setDataNascimento(cliente.getDataNascimento());
         return clienteEntity;
         }
         return null;
@@ -30,13 +32,19 @@ public class ClienteDTO {
         return null;
     }
     public static Cliente convertEntityToRow(ClienteEntity clienteEntity) {
-        Cliente rowCliente=new Cliente();
+
         if(clienteEntity!=null){
+            Cliente rowCliente= new Cliente();
             rowCliente.setId(clienteEntity.getId());
             rowCliente.setIdDoc(clienteEntity.getIdDoc());
             rowCliente.setDataNascimento(clienteEntity.getDataNascimento());
             rowCliente.setMorada(clienteEntity.getMorada());
             rowCliente.setEmail(clienteEntity.getEmail());
+            rowCliente.setTelefone(clienteEntity.getTelefone());
+            rowCliente.setNome(clienteEntity.getNome());
+            rowCliente.setRendimento(clienteEntity.getRendimento());
+            rowCliente.setSetor(clienteEntity.getSetor());
+            rowCliente.setNumberDoc(clienteEntity.getNumberDoc());
             return rowCliente;
         }
         return null;

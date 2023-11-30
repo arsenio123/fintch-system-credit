@@ -1,6 +1,5 @@
 package com.malagueta.fintch.api;
 
-import com.malagueta.fintch.adapter.ClienteRepositoryImpl;
 import com.malagueta.fintch.domain_service.value.CreditoSatus;
 import com.malagueta.fintch.port.input.services.CreditService;
 import com.malagueta.fintch.domain_service.impl.CreditServiceImpl;
@@ -8,10 +7,10 @@ import com.malagueta.fintch.entity.CreditEntity;
 import com.malagueta.fintch.port.output.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -123,7 +122,7 @@ public class CreditoAPI {
             @RequestParam(name="id" ,required = false) Long id
             ,@RequestParam(name="records", required = false) int records
             ,@RequestParam(name="estado", required = false) CreditoSatus estado
-            ,@RequestParam(name="initDate", required = false) ZonedDateTime initDate
+            ,@RequestParam(name="initDate", required = false) LocalDateTime initDate
     ) {
         try{
             CreditEntity credito= CreditEntity.builder()

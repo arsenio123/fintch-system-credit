@@ -1,9 +1,9 @@
-package com.malagueta.fintch.repository.impl;
+package com.malagueta.fintch.repository.impl.jdbc;
 
 import com.malagueta.fintch.domain_service.value.CreditoSatus;
-import com.malagueta.fintch.repository.CreditoRepository;
+import com.malagueta.fintch.repository.CreditoRepositoryDB;
 import com.malagueta.fintch.repository.GenericJDBCRepository;
-import com.malagueta.fintch.repository.impl.search.SearchCredito;
+import com.malagueta.fintch.repository.impl.jap.SearchCredito;
 import com.malagueta.fintch.tables.Cliente;
 import com.malagueta.fintch.tables.Credito;
 import jakarta.persistence.EntityManager;
@@ -22,7 +22,7 @@ import java.util.List;
 @Component
 public class CreditoJDBCRepositoryImpl
         extends GenericJDBCRepository<Credito>
-        implements CreditoRepository {
+        implements CreditoRepositoryDB {
     Logger log= LoggerFactory.getLogger(CreditoJDBCRepositoryImpl.class);
 
     public Credito getAllCredit(Credito credito) {

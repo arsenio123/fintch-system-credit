@@ -1,4 +1,4 @@
-package com.malagueta.fintch.repository.impl.search;
+package com.malagueta.fintch.repository.impl.jap;
 
 import com.malagueta.fintch.domain_service.value.CreditoSatus;
 import com.malagueta.fintch.tables.Cliente;

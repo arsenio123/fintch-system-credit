@@ -5,51 +5,62 @@ import com.malagueta.fintch.entity.ClienteEntity;
 import com.malagueta.fintch.entity.CreditEntity;
 import com.malagueta.fintch.port.output.repository.CreditRepository;
 import com.malagueta.fintch.repository.GenericJDBCRepository;
-import com.malagueta.fintch.repository.impl.CreditoJDBCRepositoryImpl;
-import com.malagueta.fintch.repository.impl.search.CreditRepositoryJPA;
+import com.malagueta.fintch.repository.impl.jdbc.CreditoJDBCRepositoryImpl;
+import com.malagueta.fintch.repository.impl.jap.CreditRepositoryJPA;
 import com.malagueta.fintch.tables.Credito;
+import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
+@Slf4j
 public class CreditRepositoryImpl extends GenericJDBCRepository<Credito> implements CreditRepository {
 
     @Autowired
-private CreditRepositoryJPA repository;
+private CreditRepositoryJPA creditRepositoryJPA;
 
 @Autowired
 private CreditoJDBCRepositoryImpl creditoJDBCRepository;
     @Override
     public CreditEntity storeCredit(CreditEntity creditEntity) {
-        CreditEntity soredEntity= CreditDTO.convertToEntity(repository
-                .save(CreditDTO.convertToTable(creditEntity)));
+        CreditEntity soredEntity= CreditDTO.convertToEntity(creditRepositoryJPA
+                .save(CreditDTO.convertToRow(creditEntity)));
         System.out.println("a chamar a implementacao do storege");
         return soredEntity;
     }
 
     @Override
     public List<CreditEntity> findByCreditoWithDownPagination(CreditEntity credito, int records) {
-       List<Credito> creditos=  creditoJDBCRepository.findCreditoWithPaginationPrevies(CreditDTO.convertToTable(credito), records);
+       List<Credito> creditos=  creditoJDBCRepository.findCreditoWithPaginationPrevies(CreditDTO.convertToRow(credito), records);
         return CreditDTO.convertToEntity(creditos);
     }
 
+    @Transactional
     @Override
     public CreditEntity presiste(CreditEntity creditEntity) {
-        Credito creditRow=CreditDTO.convertToTable(creditEntity);
+        log.debug(creditEntity.toString());
+        Credito creditRow=CreditDTO.convertToRow(creditEntity);
 
-        Credito percistedCredit=creditoJDBCRepository.saveUpdate(creditRow);
-        return CreditDTO.convertToEntity(percistedCredit);
+         creditRow=creditRepositoryJPA.save(creditRow);
+        return CreditDTO.convertToEntity(creditRow);
     }
 
     @Override
-    public CreditEntity save(CreditEntity credit) {
-        return null;
+    public CreditEntity save(CreditEntity creditEntity) {
+        return presiste(creditEntity);
     }
 
     @Override
     public List<CreditEntity> findOpenCredit(ClienteEntity cliente) {
-        return null;
+        List<Credito> credits=creditRepositoryJPA.findAllByCliente_Id(cliente.getId());
+        return CreditDTO.convertToEntity(credits);
+    }
+
+    @Override
+    public CreditEntity findById(long id) {
+        return CreditDTO.convertToEntity(creditRepositoryJPA.findById(id).orElse(null));
     }
 }

@@ -1,6 +1,7 @@
 package com.malagueta.fintch.tables;
 
 import jakarta.persistence.*;
+import jdk.jfr.Timestamp;
 import lombok.ToString;
 
 
@@ -19,6 +20,7 @@ public class Capital {
     private Double valor;
     private String descricao;
 
+    @Timestamp
     private LocalDateTime enventDate;
 
     public Long getId() {

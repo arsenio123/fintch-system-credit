@@ -7,6 +7,8 @@ import org.springframework.lang.NonNull;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @ToString
@@ -17,8 +19,8 @@ public class Credito implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     //@Column(nullable = false)
-    private Date createdDate;
-    private Date updateDate;
+    private LocalDateTime createdDate;
+    private LocalDateTime updateDate;
 
 
     //@OneToOne(mappedBy = "user")//
@@ -41,9 +43,9 @@ public class Credito implements Serializable {
    // @Column(nullable = false)
    // private long saldo;
    @Temporal(TemporalType.DATE)
-    private Date doDate;
+    private LocalDate doDate;
     @Temporal(TemporalType.DATE)
-    private Date beginDate;
+    private LocalDate beginDate;
    // @Column(nullable = false)
    @Enumerated(EnumType.STRING)
     private CreditoSatus estado;
@@ -64,19 +66,19 @@ public class Credito implements Serializable {
     private LocalDate proxima_Prestacao;
 
 
-    public Date getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Date getUpdateDate() {
+    public LocalDateTime getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(LocalDateTime updateDate) {
         this.updateDate = updateDate;
     }
 
@@ -113,14 +115,11 @@ public class Credito implements Serializable {
         this.valor = valor;
     }
 
-
-
-
-    public Date getDoDate() {
+    public LocalDate getDoDate() {
         return doDate;
     }
 
-    public void setDoDate(Date doDate) {
+    public void setDoDate(LocalDate doDate) {
         this.doDate = doDate;
     }
 
@@ -150,11 +149,11 @@ public class Credito implements Serializable {
         return this;
     }
 
-    public Date getBeginDate() {
+    public LocalDate getBeginDate() {
         return beginDate;
     }
 
-    public Credito setBeginDate(Date beginDate) {
+    public Credito setBeginDate(LocalDate beginDate) {
         this.beginDate = beginDate;
         return this;
     }

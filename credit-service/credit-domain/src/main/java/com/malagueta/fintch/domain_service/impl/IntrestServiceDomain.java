@@ -15,7 +15,7 @@ public class IntrestServiceDomain {
 
     public IntrestEntity addMoney(CreditEntity credito, Double money, String description){
         IntrestEntity lastIntrest=repository.findFirstByCreditoOrderByIdDesc(credito);
-        IntrestEntity newIntrest=IntrestEntity.builder().build();
+        IntrestEntity newIntrest;
         if(lastIntrest==null){
             newIntrest=IntrestEntity.builder()
                     .valor(Double.valueOf(money))
@@ -25,7 +25,9 @@ public class IntrestServiceDomain {
         }else{
             newIntrest=IntrestEntity.builder()
                     .valor(lastIntrest.getValor()+money)
-                    .credito(lastIntrest.getCredito()).build();
+                    .credito(lastIntrest.getCredito())
+                    .descricao(description)
+                    .enventDate(LocalDateTime.now()).build();
         }
         return repository.save(newIntrest);
     }

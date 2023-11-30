@@ -13,4 +13,6 @@ public interface CreditRepository {
     public CreditEntity save(CreditEntity credit);
 
     List<CreditEntity> findOpenCredit(ClienteEntity cliente);
+
+    CreditEntity findById(long id);
 }

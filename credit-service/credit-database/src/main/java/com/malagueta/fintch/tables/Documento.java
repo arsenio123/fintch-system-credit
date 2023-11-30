@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Entity
@@ -13,8 +15,8 @@ public class Documento implements Serializable {
     private int id;
     private String tipo;
     private String numero;
-    private Date dataValidade;
-    private Date dataEmissao;
+    private LocalDate dataValidade;
+    private LocalDate dataEmissao;
     @JsonIgnore
     @OneToOne
     private Cliente client;

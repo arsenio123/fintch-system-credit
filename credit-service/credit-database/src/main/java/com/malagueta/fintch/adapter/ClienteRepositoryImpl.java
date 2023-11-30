@@ -3,8 +3,9 @@ package com.malagueta.fintch.adapter;
 import com.malagueta.fintch.dto.ClienteDTO;
 import com.malagueta.fintch.entity.ClienteEntity;
 import com.malagueta.fintch.port.output.repository.ClienteRepository;
-import com.malagueta.fintch.repository.impl.search.ClienteRepositoryJpa;
+import com.malagueta.fintch.repository.impl.jap.ClienteRepositoryJpa;
 import com.malagueta.fintch.tables.Cliente;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class ClienteRepositoryImpl implements ClienteRepository {
         return ClienteDTO.convertRowToEntity(clienteRepositoryJpa.findById(id).orElse(null));
     }
 
+    @Transactional
     public ClienteEntity save(ClienteEntity entity){
         Cliente clienteRow= ClienteDTO.convertEntityToRow(entity);
         return ClienteDTO.convertRowToEntity(clienteRepositoryJpa.save(clienteRow));

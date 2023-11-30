@@ -8,7 +8,7 @@ import com.malagueta.fintch.tables.Credito;
 
 import java.util.List;
 
-public interface CreditoRepository {
+public interface CreditoRepositoryDB {
 
     public List<Credito> getAllCredit();
     public Credito createCredito(Credito credito);

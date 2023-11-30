@@ -3,7 +3,6 @@ package com.malagueta.fintch.dto;
 import com.malagueta.fintch.entity.CreditEntity;
 import com.malagueta.fintch.tables.Credito;
 
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +10,21 @@ import java.util.List;
  * Author: Arsenio Malagueta
  */
 public class CreditDTO {
-    public static Credito convertToTable(CreditEntity credit) {
+    public static Credito convertToRow(CreditEntity creditEntity) {
         Credito credito= new Credito();
-        credito.setId(credit.getId());
+        credito.setAprovadoPOr(creditEntity.getAprovadoPOr());
+        credito.setCliente(ClienteDTO.convertEntityToRow(creditEntity.getCliente()));
+        credito.setId(creditEntity.getId());
+        credito.setBeginDate(creditEntity.getBeginDate());
+        credito.setEstado(creditEntity.getEstado());
+        credito.setDoDate(creditEntity.getDoDate());
+        credito.setProducto(DTOProduct.convertToRow(creditEntity.getProducto()));
+        credito.setCreatedBy(creditEntity.getCreatedBy());
+        credito.setValor(creditEntity.getValor());
+        credito.setProxima_Prestacao(creditEntity.getProxima_Prestacao());
+        credito.setUpdateDate(creditEntity.getUpdateDate());
+        credito.setJurus(creditEntity.getJurus());
+        credito.setCreatedDate(creditEntity.getCreatDate());
         return credito;
     }
 
@@ -22,8 +33,14 @@ public class CreditDTO {
                 .id(creditoRow.getId())
                 .cliente(ClienteDTO.convertRowToEntity(creditoRow.getCliente()))
                 .proxima_Prestacao(creditoRow.getProxima_Prestacao())
-                .doDate(ZonedDateTime.now())
+                .doDate(creditoRow.getDoDate())
                 .producto(DTOProduct.convertToEntity(creditoRow.getProducto()))
+                .createdBy(creditoRow.getCreatedBy())
+                .aprovadoPOr(creditoRow.getAprovadoPOr())
+                .creatDate(creditoRow.getCreatedDate())
+                .valor(creditoRow.getValor())
+                .beginDate(creditoRow.getBeginDate())
+                .jurus(creditoRow.getJurus())
                 .build();
         return creditEntity;
     }

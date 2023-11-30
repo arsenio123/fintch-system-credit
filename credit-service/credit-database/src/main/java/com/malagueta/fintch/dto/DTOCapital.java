@@ -5,7 +5,10 @@ import com.malagueta.fintch.tables.Capital;
 import org.jetbrains.annotations.NotNull;
 
 public class DTOCapital {
-    public static CapitalEntity convertToEntity(@NotNull  Capital capital) {
+    public static CapitalEntity convertToEntity(Capital capital) {
+        if(capital==null){
+            return null;
+        }
         CapitalEntity capitalEntity=CapitalEntity.builder()
                 .id(capital.getId())
                 .credito(CreditDTO.convertToEntity(capital.getCredito()))
@@ -18,7 +21,7 @@ public class DTOCapital {
 
     public static Capital convertToCapital(@NotNull CapitalEntity capitalEntity){
         Capital capital=new Capital();
-        capital.setCredito(CreditDTO.convertToTable(capitalEntity.getCredito()))
+        capital.setCredito(CreditDTO.convertToRow(capitalEntity.getCredito()))
                 .setId(capitalEntity.getId())
                 .setDescricao(capitalEntity.getDescricao())
                 .setValor(capitalEntity.getValor())

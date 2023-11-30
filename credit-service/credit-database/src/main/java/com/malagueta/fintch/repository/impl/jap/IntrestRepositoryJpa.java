@@ -1,4 +1,4 @@
-package com.malagueta.fintch.repository.impl.search;
+package com.malagueta.fintch.repository.impl.jap;
 
 import com.malagueta.fintch.tables.Credito;
 import com.malagueta.fintch.tables.Intrest;

@@ -17,6 +17,7 @@ public class Intrest {
     private Double valor;
     private String descricao;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime enventDate;
 
     public Long getId() {

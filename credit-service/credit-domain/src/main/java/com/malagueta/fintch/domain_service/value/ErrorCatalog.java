@@ -15,7 +15,8 @@ public enum ErrorCatalog {
     EXPIRED_PRODUCT_CANT_BE_NORMAL("PROD001","Producto Expirado nao pode voltar ao normal") ,
     NORMAL_PRODUCT_CANT_BE_PENDING("PROD002","Productos no estado Pendentes nao podem voltar a estar Normal"),
     CAPITAL_NAO_PODE_SER_INFERIOS_AO_MIN_PRODUCOT("CPTOD001","Capital nao pode ser inferior a valor do producto associado"),
-     CREDITO_CLIENT_CANT_BE_NULL("CRED003","Indica um cliente para o credito");
+     CREDITO_CLIENT_CANT_BE_NULL("CRED003","Indica um cliente para o credito"),
+    VALOR_DO_PRODUCTO_MENOR_QUE_ZERO("PROD003","valor min deve ser maior que ZERO");
     @Getter
     private final String code;
     @Getter

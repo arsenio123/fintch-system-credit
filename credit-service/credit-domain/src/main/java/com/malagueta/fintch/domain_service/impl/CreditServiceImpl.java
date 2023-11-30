@@ -4,13 +4,18 @@ import com.malagueta.fintch.entity.*;
 import com.malagueta.fintch.port.input.services.CreditService;
 import com.malagueta.fintch.domain_service.value.ErrorCatalog;
 import com.malagueta.fintch.port.output.repository.*;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * Author: Arsenio Jeronimo Malagueta
  */
+
+//@Slf4j(topic = "CreditServiceImpl")
 
 public class CreditServiceImpl implements CreditService {
     private CapitalServiceDomain capitalServiceDomain;
@@ -25,6 +30,14 @@ public class CreditServiceImpl implements CreditService {
 
     private ProductoRepository productoRepository;
 
+    /**
+     *
+     * @param creditRepository
+     * @param capitalRepository
+     * @param intrestRepository
+     * @param clienteRepository
+     * @param productoRepository
+     */
     public CreditServiceImpl(@NotNull CreditRepository creditRepository,
                              @NotNull CapitalRepository capitalRepository,
                              @NotNull IntrestRepository intrestRepository,
@@ -40,17 +53,23 @@ public class CreditServiceImpl implements CreditService {
         this.capitalServiceDomain=new CapitalServiceDomain(capitalRepository);
 
     }
-
+    public CreditServiceImpl(@NotNull CreditRepository creditRepository){
+        this.creditRepository=creditRepository;
+    }
 
     @Override
     public CreditEntity creatCredit(@NotNull CreditEntity creditoEntity) {
-        //log.debug("Inico de validacao da criacao do user "+creditoEntity);
+        //log.info("Inico de validacao da criacao do user "+creditoEntity);
 
         preValidation(creditoEntity);
         ClienteEntity cliente=clienteRepository.findById(creditoEntity.getCliente().getId());
         ProductoEntity producto=productoRepository.findById(creditoEntity.getProducto().getId());
         creditoEntity.setCliente(cliente);
         creditoEntity.setProducto(producto);
+        creditoEntity.setCreatDate(LocalDateTime.now());
+        creditoEntity.setUpdateDate(LocalDateTime.now());
+
+
         postvalidation(creditoEntity);
 
         List<CreditEntity> openCredits =creditRepository.findOpenCredit(creditoEntity.getCliente());
@@ -69,13 +88,22 @@ public class CreditServiceImpl implements CreditService {
         }
         return null;
     }
+/*
+    public void creatCreditRollBAck(){
 
+    }
 
+*/
 
 
     @Override
-    public List<CreditEntity> findByCreditoWithDownPagination(CreditEntity credito, int records, @NotNull CreditRepository repository) {
-        return repository.findByCreditoWithDownPagination(credito, records);
+    public List<CreditEntity> findByCreditoWithDownPagination(CreditEntity credito, int records, @NotNull CreditRepository creditRepository) {
+        return creditRepository.findByCreditoWithDownPagination(credito, records);
+    }
+
+    @Override
+    public CreditEntity findCreditoByID(long id) {
+        return creditRepository.findById(id);
     }
 
     public void postvalidation(CreditEntity creditoEntity)  {

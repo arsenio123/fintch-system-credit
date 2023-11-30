@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 @ToString
@@ -15,8 +16,8 @@ import java.time.ZonedDateTime;
 @Builder
 public class CreditEntity {
     private Long id;
-    private ZonedDateTime creatDate;
-    private ZonedDateTime updateDate;
+    private LocalDateTime creatDate;
+    private LocalDateTime updateDate;
 
     private Long createdBy;
 
@@ -26,9 +27,9 @@ public class CreditEntity {
 
     private long valor;
 
-    private ZonedDateTime doDate;
+    private LocalDate doDate;
 
-    private ZonedDateTime beginDate;
+    private LocalDate beginDate;
 
     private CreditoSatus estado;
 

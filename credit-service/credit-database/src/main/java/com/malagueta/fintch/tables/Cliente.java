@@ -4,20 +4,24 @@ package com.malagueta.fintch.tables;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.malagueta.fintch.entity.ClienteEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @ToString
 @Entity
+@Getter
+@Setter
 public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
     private Integer rendimento;
 
     private String morada;
@@ -39,7 +43,9 @@ public class Cliente implements Serializable {
     @OneToMany( fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Documento> documento;
 
-    public long getId() {
+
+
+/*    public long getId() {
         return id;
     }
 
@@ -126,5 +132,5 @@ public class Cliente implements Serializable {
         this.documento = documento;
         return this;
     }
-
+*/
 }
