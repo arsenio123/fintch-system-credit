@@ -4,6 +4,9 @@ import com.malagueta.fintch.entity.ProductoEntity;
 import com.malagueta.fintch.tables.Producto;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DTOProduct {
     public static ProductoEntity convertToEntity(Producto producto) {
         try {
@@ -36,5 +39,15 @@ public class DTOProduct {
                 .setCapitalMin(productoEntity.getCapitalMin())
                 .setEstado(productoEntity.getEstado());
         return producto;
+    }
+
+    public static List<ProductoEntity> convertToEntitys(List<Producto> productos) {
+        if (productos==null)
+                return null;
+        List<ProductoEntity> productoEntities= new ArrayList<ProductoEntity>();
+        productos.stream().forEach(producto ->{
+            productoEntities.add(DTOProduct.convertToEntity(producto));
+        } );
+        return productoEntities;
     }
 }

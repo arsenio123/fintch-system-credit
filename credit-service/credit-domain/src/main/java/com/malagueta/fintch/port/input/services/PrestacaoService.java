@@ -1,7 +1,5 @@
 package com.malagueta.fintch.port.input.services;
 
-import com.malagueta.fintch.domain_service.impl.CapitalServiceDomain;
-import com.malagueta.fintch.domain_service.impl.IntrestServiceDomain;
 import com.malagueta.fintch.domain_service.value.Estado;
 import com.malagueta.fintch.entity.PrestacaoEntity;
 import com.malagueta.fintch.port.output.repository.*;

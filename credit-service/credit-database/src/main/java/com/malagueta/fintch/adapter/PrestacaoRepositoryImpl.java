@@ -52,6 +52,6 @@ public class PrestacaoRepositoryImpl implements PrestacaoRepository {
 
     @Override
     public PrestacaoEntity getById(long id) {
-        return null;
+        return DTOPrestacao.convetToEntity(prestacaoRepositoryJpa.findById(id).orElse(null)) ;
     }
 }

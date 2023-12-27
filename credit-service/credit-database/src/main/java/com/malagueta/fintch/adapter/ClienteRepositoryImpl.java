@@ -19,18 +19,18 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     }
     @Override
     public List<ClienteEntity> pesquisarTodosClientes() {
-        return ClienteDTO.convertRowToEntity(clienteRepositoryJpa.findAll());
+        return ClienteDTO.convertToEntitys(clienteRepositoryJpa.findAll());
     }
 
     @Override
     public ClienteEntity findById(Long id) {
-        return ClienteDTO.convertRowToEntity(clienteRepositoryJpa.findById(id).orElse(null));
+        return ClienteDTO.convertToEntity(clienteRepositoryJpa.findById(id).orElse(null));
     }
 
     @Transactional
     public ClienteEntity save(ClienteEntity entity){
-        Cliente clienteRow= ClienteDTO.convertEntityToRow(entity);
-        return ClienteDTO.convertRowToEntity(clienteRepositoryJpa.save(clienteRow));
+        Cliente clienteRow= ClienteDTO.convertToRow(entity);
+        return ClienteDTO.convertToEntity(clienteRepositoryJpa.save(clienteRow));
     }
 
 }

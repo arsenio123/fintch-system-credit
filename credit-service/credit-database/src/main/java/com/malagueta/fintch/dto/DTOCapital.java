@@ -19,7 +19,9 @@ public class DTOCapital {
         return capitalEntity;
     }
 
-    public static Capital convertToCapital(@NotNull CapitalEntity capitalEntity){
+    public static Capital convertToRow( CapitalEntity capitalEntity){
+        if(capitalEntity==null)
+            return null;
         Capital capital=new Capital();
         capital.setCredito(CreditDTO.convertToRow(capitalEntity.getCredito()))
                 .setId(capitalEntity.getId())

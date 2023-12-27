@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.QueryByExampleExecutor;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -29,8 +30,8 @@ public interface SearchCredito extends JpaRepository<Credito, Long>, QueryByExam
 
             ":valor is null or c.valor=:valor")
     public List<Credito> findByEstadoAndBegindate(Optional <CreditoSatus> estado,
-                                                  Optional <Date> beginDateMin,
-                                                  Optional <Date> beginDateMax,
+                                                  Optional <LocalDate> beginDateMin,
+                                                  Optional <LocalDate> beginDateMax,
                                                   Optional <Long> valor);
 
     @Query("select c from Credito c where c.estado=?1 and  c.doDate>=?2 and c.beginDate<=?2")

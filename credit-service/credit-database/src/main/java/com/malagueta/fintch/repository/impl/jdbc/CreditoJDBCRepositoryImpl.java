@@ -14,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Profile("JPA")
@@ -59,6 +61,11 @@ public class CreditoJDBCRepositoryImpl
 
     @Override
     public List<Credito> findCreditoWithPagination(Credito credito, int records) {
+        return null;
+    }
+
+
+    public List<Credito> findCreditoWithUpPagination(Credito credito, int records) {
         log.debug("inicio do findCreditoWithPagination, input "+credito+", recordes "+records);
         EntityManager em=getEntityManager();
 
@@ -87,7 +94,7 @@ public class CreditoJDBCRepositoryImpl
 
                 log.debug("incluido ID="+credito.getId());
                 Path<Long> idPath=rootCredito.get("id");
-                predicates.add(crBuilder.lessThan(idPath,credito.getId()));
+                predicates.add(crBuilder.lessThanOrEqualTo(idPath,credito.getId()));
             }
 
         }
@@ -134,7 +141,7 @@ public class CreditoJDBCRepositoryImpl
 
                 log.debug("incluido ID="+credito.getId());
                 Path<Long> idPath=rootCredito.get("id");
-                predicates.add(crBuilder.lessThan(idPath,credito.getId()));
+                predicates.add(crBuilder.lessThanOrEqualTo(idPath,credito.getId()));
             }
 
         }
@@ -149,6 +156,25 @@ public class CreditoJDBCRepositoryImpl
         log.debug("findCreditoWithPagination " +creditos.toString());
 
         return creditos;
+    }
+    public List<Credito> listarPorEstadoBeginDateEndDate(CreditoSatus estado,
+                                                         LocalDate minBeginDate,
+                                                         LocalDate maxBeginDate,
+                                                         Long valor){
+        Optional<CreditoSatus> estadoOp;
+        Optional<LocalDate> minBeginDateOp;
+        Optional<LocalDate> maxBeginDateOp;
+        Optional<Long> valorOp;
+
+        if (estado == null) estadoOp = Optional.empty(); else estadoOp = Optional.of(estado);
+        if (minBeginDate == null) minBeginDateOp = Optional.empty(); else minBeginDateOp = Optional.of(minBeginDate);
+        if (maxBeginDate == null) maxBeginDateOp = Optional.empty(); else maxBeginDateOp = Optional.of(maxBeginDate);
+        if (valor == null) valorOp = Optional.empty(); else valorOp = Optional.of(valor);
+
+        return searchCredito.findByEstadoAndBegindate(estadoOp,
+                minBeginDateOp,
+                maxBeginDateOp,
+                valorOp);
     }
 
 

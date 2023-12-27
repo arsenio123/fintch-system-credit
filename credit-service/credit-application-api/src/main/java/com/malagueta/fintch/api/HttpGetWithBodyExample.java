@@ -5,7 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class HttpGetWithBodyExample {
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         try {
             // URL para a qual você deseja enviar a solicitação GET com corpo
             String url = "http://localhost:8082/teste";
@@ -42,6 +42,6 @@ public class HttpGetWithBodyExample {
             e.printStackTrace();
         }
     }
-
+*/
 
 }

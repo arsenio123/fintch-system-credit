@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 @RestController
@@ -20,16 +20,11 @@ public class CreditoAPI {
     private static Logger log= LoggerFactory.getLogger(CreditoAPI.class);
     //Deve ser colocado on fly
 
-   // @Autowired
     private  CreditRepository creditRepository;
     private CreditService creditoService;
-    //@Autowired
     private CapitalRepository capitalRepository;
-    //@Autowired
     private IntrestRepository intrestRepository;
-    //@Autowired
     private ClienteRepository clienteRepository;
-    //@Autowired
     private ProductoRepository productoRepository;
 
 
@@ -64,8 +59,8 @@ public class CreditoAPI {
         return creditEntity= creditoService.creatCredit(creditEntity);
     }
 
-/*
-    @GetMapping ("MS/credito/list")
+
+    @GetMapping ("credito/list")
     public List<CreditEntity> listCredito(){
         return null;
     }
@@ -73,10 +68,10 @@ public class CreditoAPI {
     @CrossOrigin
     //@PreAuthorize("hasAuthority('ROLE_CREDITOS')")
     public List<CreditEntity> getbyCritirea(@RequestParam(name="estado" ,required = false) CreditoSatus estado,
-                                       @RequestParam(name="minBeginDate", required = false) Date minBeginDate,
-                                       @RequestParam(name="maxBeginDate", required = false)Date maxBeginDate,
+                                       @RequestParam(name="minBeginDate", required = false) LocalDate minBeginDate,
+                                       @RequestParam(name="maxBeginDate", required = false) LocalDate maxBeginDate,
                                        @RequestParam(name="valor", required = false) long valor) {
-        return creditoService.listarPorCreterio(estado,minBeginDate,maxBeginDate,valor);
+        return creditoService.listarPorEstadoBeginDateEndDate(estado,minBeginDate,maxBeginDate,valor);
 
     }
 
@@ -96,15 +91,13 @@ public class CreditoAPI {
     @GetMapping("credito/list/critirea/v2")
     @CrossOrigin
     //@PreAuthorize("hasAuthority('ROLE_CREDITOS')")
-    public List<CreditEntity> findByCreditoWithPagination(
+    public List<CreditEntity> findByCreditoWithUpPagination(
             @RequestParam(name="id" ,required = false) long id
             ,@RequestParam(name="records", required = false) int records
             ,@RequestParam(name="estado", required = false) CreditoSatus estado
     ) {
         try{
-            CreditEntity credito=new Credito();
-            credito.setId(id)
-                    .setEstado(estado);
+            CreditEntity credito=CreditEntity.builder().id(id).estado(estado).build();
 
             return creditoService.findByCreditoWithUpPagination(credito,records) ;
         }catch (Exception ex){
@@ -114,7 +107,7 @@ public class CreditoAPI {
 
 
     }
-    */
+  /*  */
 
     @GetMapping("credito/list/critirea/previes")
     @CrossOrigin

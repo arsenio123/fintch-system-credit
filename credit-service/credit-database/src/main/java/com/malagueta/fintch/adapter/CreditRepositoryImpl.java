@@ -1,5 +1,6 @@
 package com.malagueta.fintch.adapter;
 
+import com.malagueta.fintch.domain_service.value.CreditoSatus;
 import com.malagueta.fintch.dto.CreditDTO;
 import com.malagueta.fintch.entity.ClienteEntity;
 import com.malagueta.fintch.entity.CreditEntity;
@@ -13,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -35,7 +37,7 @@ private CreditoJDBCRepositoryImpl creditoJDBCRepository;
     @Override
     public List<CreditEntity> findByCreditoWithDownPagination(CreditEntity credito, int records) {
        List<Credito> creditos=  creditoJDBCRepository.findCreditoWithPaginationPrevies(CreditDTO.convertToRow(credito), records);
-        return CreditDTO.convertToEntity(creditos);
+        return CreditDTO.convertToEntitys(creditos);
     }
 
     @Transactional
@@ -56,11 +58,29 @@ private CreditoJDBCRepositoryImpl creditoJDBCRepository;
     @Override
     public List<CreditEntity> findOpenCredit(ClienteEntity cliente) {
         List<Credito> credits=creditRepositoryJPA.findAllByCliente_Id(cliente.getId());
-        return CreditDTO.convertToEntity(credits);
+        return CreditDTO.convertToEntitys(credits);
     }
 
     @Override
     public CreditEntity findById(long id) {
         return CreditDTO.convertToEntity(creditRepositoryJPA.findById(id).orElse(null));
     }
+
+    @Override
+    public List<CreditEntity> listarPorEstadoBeginDateEndDate(CreditoSatus estado, LocalDate minBeginDate, LocalDate maxBeginDate, long valor) {
+        return CreditDTO.convertToEntitys(creditoJDBCRepository.listarPorEstadoBeginDateEndDate(estado, minBeginDate, maxBeginDate, valor));
+    }
+
+    public List<CreditEntity> findByCreditoWithUpPagination(CreditEntity creditEntity, int records) {
+        return CreditDTO.convertToEntitys(
+                creditoJDBCRepository.findCreditoWithUpPagination(CreditDTO.convertToRow(creditEntity), records)
+        );
+    }
+
+    @Override
+    public List<CreditEntity> findByDodateLessThan(LocalDate date) {
+        return CreditDTO.convertToEntitys(creditRepositoryJPA.findCreditoByDoDateBefore(date));
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.malagueta.fintch.domain_service.impl;
 
+import com.malagueta.fintch.domain_service.value.CreditoSatus;
 import com.malagueta.fintch.entity.*;
 import com.malagueta.fintch.port.input.services.CreditService;
 import com.malagueta.fintch.domain_service.value.ErrorCatalog;
@@ -104,6 +105,21 @@ public class CreditServiceImpl implements CreditService {
     @Override
     public CreditEntity findCreditoByID(long id) {
         return creditRepository.findById(id);
+    }
+
+    @Override
+    public List<CreditEntity> listarPorEstadoBeginDateEndDate(CreditoSatus estado, LocalDate minBeginDate, LocalDate maxBeginDate, long valor) {
+        return creditRepository.listarPorEstadoBeginDateEndDate(estado, minBeginDate,maxBeginDate, valor);
+    }
+
+    @Override
+    public List<CreditEntity> findByCreditoWithUpPagination(CreditEntity creditoEntity, int records) {
+        return creditRepository.findByCreditoWithUpPagination(creditoEntity,records);
+    }
+
+    @Override
+    public CreditEntity updateStatus(Long id, CreditoSatus status) {
+        return null;
     }
 
     public void postvalidation(CreditEntity creditoEntity)  {

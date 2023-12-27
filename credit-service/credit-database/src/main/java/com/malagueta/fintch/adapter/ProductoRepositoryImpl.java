@@ -47,7 +47,9 @@ public class ProductoRepositoryImpl implements ProductoRepository {
 
     @Override
     public List<ProductoEntity> findByStatus(ProductoEstados status) {
-        return null;
+        return DTOProduct.convertToEntitys(
+                repositoryJpa.findProductosByEstado(status)
+    );
     }
 
     @Override

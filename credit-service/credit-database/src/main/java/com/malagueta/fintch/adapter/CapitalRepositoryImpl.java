@@ -33,7 +33,7 @@ public class CapitalRepositoryImpl implements CapitalRepository {
 
         return DTOCapital
                 .convertToEntity(capitalRepositoryJpa.save(
-                        DTOCapital.convertToCapital(capitalEntity))
+                        DTOCapital.convertToRow(capitalEntity))
                 );
     }
 }

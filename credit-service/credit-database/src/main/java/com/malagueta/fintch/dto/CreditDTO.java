@@ -13,7 +13,7 @@ public class CreditDTO {
     public static Credito convertToRow(CreditEntity creditEntity) {
         Credito credito= new Credito();
         credito.setAprovadoPOr(creditEntity.getAprovadoPOr());
-        credito.setCliente(ClienteDTO.convertEntityToRow(creditEntity.getCliente()));
+        credito.setCliente(ClienteDTO.convertToRow(creditEntity.getCliente()));
         credito.setId(creditEntity.getId());
         credito.setBeginDate(creditEntity.getBeginDate());
         credito.setEstado(creditEntity.getEstado());
@@ -31,7 +31,7 @@ public class CreditDTO {
     public static CreditEntity convertToEntity(Credito creditoRow) {
         CreditEntity creditEntity= CreditEntity.builder()
                 .id(creditoRow.getId())
-                .cliente(ClienteDTO.convertRowToEntity(creditoRow.getCliente()))
+                .cliente(ClienteDTO.convertToEntity(creditoRow.getCliente()))
                 .proxima_Prestacao(creditoRow.getProxima_Prestacao())
                 .doDate(creditoRow.getDoDate())
                 .producto(DTOProduct.convertToEntity(creditoRow.getProducto()))
@@ -45,7 +45,7 @@ public class CreditDTO {
         return creditEntity;
     }
 
-    public static List<CreditEntity> convertToEntity(List<Credito> creditoRows) {
+    public static List<CreditEntity> convertToEntitys(List<Credito> creditoRows) {
         List<CreditEntity> creditEntitys= new ArrayList<>();
         creditoRows.stream().forEach(credito -> {
                     creditEntitys.add(convertToEntity(credito));
