@@ -2,22 +2,24 @@ package com.malagueta.fintch.api;
 
 
 
+import com.malagueta.fintch.FintechLogg;
 import com.malagueta.fintch.domain_service.impl.PrestacaoServiceImpl;
 import com.malagueta.fintch.domain_service.value.Estado;
 import com.malagueta.fintch.entity.PrestacaoEntity;
 import com.malagueta.fintch.port.input.services.PrestacaoService;
 import com.malagueta.fintch.port.output.repository.*;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Slf4j(topic = "PrestacoesAPI")
+//@Slf4j(topic = "PrestacoesAPI")
 @RestController
 public class PrestacoesAPI {
-
+    Logger log= FintechLogg.getLogger(PrestacoesAPI.class);
     private PrestacaoRepository prestacaoRepository;
     private IntrestRepository intrestRepository;
     private CapitalRepository capitalRepository;

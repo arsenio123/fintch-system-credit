@@ -33,4 +33,9 @@ public class ClienteRepositoryImpl implements ClienteRepository {
         return ClienteDTO.convertToEntity(clienteRepositoryJpa.save(clienteRow));
     }
 
+    @Override
+    public ClienteEntity findByName(String name) {
+        return ClienteDTO.convertToEntity(clienteRepositoryJpa.findByNome(name));
+    }
+
 }

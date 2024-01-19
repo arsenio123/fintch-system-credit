@@ -107,27 +107,6 @@ public class GmailEmailSender {
         return null;
     }
 
-    public static void main(String[] args) throws MessagingException {
-
-        // Replace with the recipient's email address
-        String toEmail = "arsenio.malagueta@mozabanco.co.mz,arsenio.malagueta@gmail.com";
-
-        // Email details
-        String subject = "Test Email";
-        String body = "<h1>1</h1> <h2></h2>This is a test email sent from Java.";
-        body=body+" "+style;
-        // Create an instance of GmailEmailSender
-
-
-        // Send the email
-        GmailEmailSender gmailEmailSender=new GmailEmailSender();
-        //Message message=gmailEmailSender.prepereMessage(toEmail, subject, body);
-        //gmailEmailSender.addAttach(message,"D:\\pedido.pdf");
-        //Message message=
-                gmailEmailSender.sendEmailSMTP_HTML(toEmail,toEmail,subject,body);
-        //Transport.send(message);
-
-    }
 
    public void sendEmailSMTP_HTML(String toEmail, String ccEmail, String subject, String body)  {
 

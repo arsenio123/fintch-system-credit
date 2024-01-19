@@ -43,8 +43,8 @@ public class CriateCreditoTest {
 
         ;
         CreditEntity credit=CreditEntity.builder().jurus(13)
-                        .doDate(ZonedDateTime.now().plusDays(60))
-                                .creatDate(ZonedDateTime.now())
+                        //.doDate(ZonedDateTime.now().plusDays(60))
+                              //  .creatDate(ZonedDateTime.now())
                                         .estado(CreditoSatus.PENDENTE)
                                                 .valor(1000)
                                                         .producto(producto).build();

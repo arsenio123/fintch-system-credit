@@ -1,12 +1,13 @@
 package com.malagueta.fintch.api;
 
+import com.malagueta.fintch.FintechLogg;
+import com.malagueta.fintch.config.AppConfig;
 import com.malagueta.fintch.domain_service.value.CreditoSatus;
 import com.malagueta.fintch.port.input.services.CreditService;
-import com.malagueta.fintch.domain_service.impl.CreditServiceImpl;
 import com.malagueta.fintch.entity.CreditEntity;
 import com.malagueta.fintch.port.output.repository.*;
+import com.malagueta.fintch.domain_service.impl.factory.CreditServiceFactory;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ import java.util.List;
 @RestController
 public class CreditoAPI {
 
-    private static Logger log= LoggerFactory.getLogger(CreditoAPI.class);
+    Logger log= FintechLogg.getLogger(CreditoAPI.class);
     //Deve ser colocado on fly
 
     private  CreditRepository creditRepository;
@@ -27,18 +28,23 @@ public class CreditoAPI {
     private ClienteRepository clienteRepository;
     private ProductoRepository productoRepository;
 
+    private AppConfig config;
+
 
     public CreditoAPI(CreditRepository creditRepository,
                       CapitalRepository capitalRepository,
                       IntrestRepository intrestRepository,
                       ClienteRepository clienteRepository,
-                      ProductoRepository productoRepository){
+                      ProductoRepository productoRepository,
+                      AppConfig config){
+        this.config=config;
         this.capitalRepository=capitalRepository;
         this.intrestRepository=intrestRepository;
         this.creditRepository=creditRepository;
         this.productoRepository=productoRepository;
 
-        this.creditoService=new CreditServiceImpl(creditRepository,
+        this.creditoService=CreditServiceFactory.getCreditService(config.getClientServiceImpl(),
+                creditRepository,
                 capitalRepository,
                 intrestRepository,
                 clienteRepository,
@@ -48,7 +54,7 @@ public class CreditoAPI {
     @CrossOrigin
     @PostMapping("credito/creat")
     public CreditEntity createCredito(@RequestBody CreditEntity creditEntity){
-        log.debug(creditEntity.toString());
+        log.debug("creating credit from input: "+creditEntity.toString());
          creditEntity= creditoService.creatCredit(creditEntity);
         return creditEntity;
     }

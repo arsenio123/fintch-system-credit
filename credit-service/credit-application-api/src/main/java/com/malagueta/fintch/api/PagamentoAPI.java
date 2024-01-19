@@ -1,8 +1,11 @@
 package com.malagueta.fintch.api;
 
+import com.malagueta.fintch.FintechLogg;
+import com.malagueta.fintch.config.AppConfig;
 import com.malagueta.fintch.domain_service.impl.CapitalServiceDomain;
 import com.malagueta.fintch.domain_service.impl.IntrestServiceDomain;
 import com.malagueta.fintch.domain_service.impl.PagamentoServiceImpl;
+import com.malagueta.fintch.domain_service.impl.factory.PagamentoServiceFactory;
 import com.malagueta.fintch.entity.PagamentoEntity;
 import com.malagueta.fintch.port.input.services.PagamentoService;
 import com.malagueta.fintch.port.output.repository.*;
@@ -15,7 +18,7 @@ import java.util.List;
 
 @RestController
 public class PagamentoAPI {
-    Logger log= LoggerFactory.getLogger(PagamentoAPI.class);
+    Logger log= FintechLogg.getLogger(PagamentoAPI.class);
 
     private PagamentoService pagamentoService;
 
@@ -24,13 +27,15 @@ public class PagamentoAPI {
     private PrestacaoRepository prestacaoRepository;
     private IntrestServiceDomain intrestServiceDomain;
     private CapitalServiceDomain capitalServiceDomain;
+    private AppConfig appConfig;
 
-    PagamentoAPI(PagamentoRepository pagamentoRepository,
+    PagamentoAPI(AppConfig appConfig,PagamentoRepository pagamentoRepository,
                  CreditRepository creditoRepository,
                  PrestacaoRepository prestacaoRepository,
                  IntrestRepository intrestRepository,
                  CapitalRepository capitalRepository){
-        this.pagamentoService=new PagamentoServiceImpl(pagamentoRepository,
+        this.appConfig=appConfig;
+        this.pagamentoService=PagamentoServiceFactory.getPagamentoService(appConfig.getPagamentoServicoImpl(), pagamentoRepository,
                 creditoRepository,
                 prestacaoRepository,
                 intrestRepository,

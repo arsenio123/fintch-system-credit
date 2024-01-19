@@ -10,4 +10,6 @@ public interface ClienteRepository {
     public ClienteEntity findById(Long id);
 
     ClienteEntity save(ClienteEntity clienteEntity);
+
+    public ClienteEntity findByName(String name);
 }
