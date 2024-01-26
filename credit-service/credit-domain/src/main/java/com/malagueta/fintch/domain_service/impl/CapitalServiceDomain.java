@@ -33,8 +33,9 @@ public class CapitalServiceDomain {
 
         newCapital.setDescricao(descricao);
         newCapital.setCredito(creditoEntity);
-
+        //event.add(operation, dados, )
         return capitalRepository.save(newCapital);
+
 
 
     }

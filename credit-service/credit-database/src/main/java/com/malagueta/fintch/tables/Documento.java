@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.util.Date;
 
 @Entity
 public class Documento implements Serializable {

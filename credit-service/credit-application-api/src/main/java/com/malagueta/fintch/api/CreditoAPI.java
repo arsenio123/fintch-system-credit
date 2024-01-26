@@ -1,6 +1,7 @@
 package com.malagueta.fintch.api;
 
 import com.malagueta.fintch.FintechLogg;
+import com.malagueta.fintch.audit.EventData;
 import com.malagueta.fintch.config.AppConfig;
 import com.malagueta.fintch.domain_service.value.CreditoSatus;
 import com.malagueta.fintch.port.input.services.CreditService;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class CreditoAPI {
@@ -28,6 +31,7 @@ public class CreditoAPI {
     private ClienteRepository clienteRepository;
     private ProductoRepository productoRepository;
 
+    private EventRepository eventRepository;
     private AppConfig config;
 
 
@@ -36,33 +40,44 @@ public class CreditoAPI {
                       IntrestRepository intrestRepository,
                       ClienteRepository clienteRepository,
                       ProductoRepository productoRepository,
+                      EventRepository eventRepository,
                       AppConfig config){
         this.config=config;
         this.capitalRepository=capitalRepository;
         this.intrestRepository=intrestRepository;
         this.creditRepository=creditRepository;
         this.productoRepository=productoRepository;
+        this.eventRepository= eventRepository;
 
         this.creditoService=CreditServiceFactory.getCreditService(config.getClientServiceImpl(),
                 creditRepository,
                 capitalRepository,
                 intrestRepository,
                 clienteRepository,
-                productoRepository);
+                productoRepository,
+                eventRepository);
     }
 
     @CrossOrigin
     @PostMapping("credito/creat")
-    public CreditEntity createCredito(@RequestBody CreditEntity creditEntity){
+    public CreditEntity createCredito(@RequestBody CreditEntity creditEntity,
+                                      @RequestHeader (name = "Authorization") String sessionID){
+
         log.debug("creating credit from input: "+creditEntity.toString());
-         creditEntity= creditoService.creatCredit(creditEntity);
+         EventData eventData= EventData.builder().build();
+         eventData.setEventInput(creditEntity.toString());
+         eventData.setSessionId(sessionID);
+         eventData.setOperationId(UUID.randomUUID());
+         creditEntity= creditoService.creatCredit(creditEntity, eventData);
         return creditEntity;
     }
     @PostMapping("credito/atualiza")
     @CrossOrigin
-    public CreditEntity atualizarCredito(@RequestBody CreditEntity creditEntity){
+    public CreditEntity atualizarCredito(@RequestBody CreditEntity creditEntity, @RequestHeader (name = "Authorization") String sessionID){
+        log.debug("creating credit from input: "+creditEntity.toString());
+        EventData eventData= EventData.builder().sessionId(sessionID).build();
 
-        return creditEntity= creditoService.creatCredit(creditEntity);
+        return creditEntity= creditoService.creatCredit(creditEntity,eventData);
     }
 
 
@@ -100,8 +115,11 @@ public class CreditoAPI {
     public List<CreditEntity> findByCreditoWithUpPagination(
             @RequestParam(name="id" ,required = false) long id
             ,@RequestParam(name="records", required = false) int records
-            ,@RequestParam(name="estado", required = false) CreditoSatus estado
+            ,@RequestParam(name="estado", required = false) CreditoSatus estado,
+            @RequestHeader("Authorization") String token
     ) {
+
+        System.err.println("header Authorization"+token);
         try{
             CreditEntity credito=CreditEntity.builder().id(id).estado(estado).build();
 
@@ -114,6 +132,14 @@ public class CreditoAPI {
 
     }
   /*  */
+
+    @GetMapping("credito/list/findCreditoByClientID")
+    @CrossOrigin
+    public List<CreditEntity> findCreditoByClientID(@RequestParam(name = "clientID") long clientID, @RequestHeader("Authorization") String token){
+        List<CreditEntity> output=new ArrayList<CreditEntity>();
+        output=creditoService.findCredtitoByClientID(clientID);
+        return output;
+    }
 
     @GetMapping("credito/list/critirea/previes")
     @CrossOrigin

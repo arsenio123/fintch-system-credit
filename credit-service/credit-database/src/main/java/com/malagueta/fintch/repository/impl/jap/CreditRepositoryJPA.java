@@ -12,4 +12,7 @@ public interface CreditRepositoryJPA extends JpaRepository<Credito,Long> {
     public List<Credito> findAllByCliente_Id(long id);
 
     public List<Credito> findCreditoByDoDateBefore(LocalDate doDate);
+
+
+
 }

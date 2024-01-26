@@ -10,7 +10,8 @@ public class CreditServiceFactory {
                                                    CapitalRepository capitalRepository,
                                                    IntrestRepository intrestRepository,
                                                    ClienteRepository clienteRepository,
-                                                   ProductoRepository productoRepository){
+                                                   ProductoRepository productoRepository,
+                                                 EventRepository eventRepository){
         CreditService service;
         switch (implemetation){
             case "one": {
@@ -18,7 +19,8 @@ public class CreditServiceFactory {
                         capitalRepository,
                         intrestRepository,
                         clienteRepository,
-                        productoRepository);
+                        productoRepository,
+                        eventRepository);
                 System.out.println("usando a implementacao  one");
                 break;
             }
@@ -27,7 +29,8 @@ public class CreditServiceFactory {
                         capitalRepository,
                         intrestRepository,
                         clienteRepository,
-                        productoRepository);
+                        productoRepository,
+                        eventRepository);
                 System.out.println("usando a implementacao  default");
                 break;
             }

@@ -51,13 +51,13 @@ public class PrestacoesAPI {
 
     @GetMapping("prestacao/list")
     @CrossOrigin
-    public List<PrestacaoEntity> listar (Long creditID, Estado Status, LocalDate begin, LocalDate end){
+    public List<PrestacaoEntity> listAll (Long creditID, Estado Status, LocalDate begin, LocalDate end){
         return prestacaoService.listar(creditID,Status,begin,end,prestacaoRepository);
     }
 
     @GetMapping("prestacao/list/credit_id")
     @CrossOrigin
-    public List<PrestacaoEntity> listar (@Param("id") long id){
+    public List<PrestacaoEntity> listById (@Param("id") long id){
         log.info("Pedido Prestacao para o Credito: numero="+id);
         List<PrestacaoEntity>  output= prestacaoService.listar(id,null,null,null,prestacaoRepository);
         log.info("Output: "+output);

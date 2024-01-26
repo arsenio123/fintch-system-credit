@@ -24,6 +24,11 @@
             <artifactId>lombok</artifactId>
             <!--<version>1.18.26</version>-->
         </dependency>
+        <dependency>
+            <groupId>com.malagueta</groupId>
+            <artifactId>credit-logging</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <properties>

@@ -38,14 +38,14 @@ public class ProdutoAPI {
 
     @GetMapping("producto/find")
     @CrossOrigin
-    public List<ProductoEntity> listar( @RequestParam ProductoEstados status){
+    public List<ProductoEntity> listarPorEstado( @RequestParam ProductoEstados status){
 
         return productoService.listarPorEstado(status);
     }
 
     @GetMapping("producto/listar")
     @CrossOrigin
-    public List<ProductoEntity> listar( ){
+    public List<ProductoEntity> listAll( ){
 
         return productoService.listarTodos();
     }

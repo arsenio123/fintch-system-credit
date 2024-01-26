@@ -23,4 +23,6 @@ public interface CreditRepository {
     List<CreditEntity> findByCreditoWithUpPagination(CreditEntity creditoEntity, int records);
 
     List<CreditEntity> findByDodateLessThan(LocalDate date);
+
+    List<CreditEntity> findCredtitoByClientID(long clientID);
 }

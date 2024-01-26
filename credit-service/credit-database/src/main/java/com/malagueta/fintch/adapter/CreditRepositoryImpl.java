@@ -58,6 +58,7 @@ private CreditoJDBCRepositoryImpl creditoJDBCRepository;
     @Override
     public List<CreditEntity> findOpenCredit(ClienteEntity cliente) {
         List<Credito> credits=creditRepositoryJPA.findAllByCliente_Id(cliente.getId());
+//        TODO: este servico deve devolver apenas creditos que estejam em vigor
         return CreditDTO.convertToEntitys(credits);
     }
 
@@ -80,6 +81,11 @@ private CreditoJDBCRepositoryImpl creditoJDBCRepository;
     @Override
     public List<CreditEntity> findByDodateLessThan(LocalDate date) {
         return CreditDTO.convertToEntitys(creditRepositoryJPA.findCreditoByDoDateBefore(date));
+    }
+
+    @Override
+    public List<CreditEntity> findCredtitoByClientID(long clientID) {
+        return CreditDTO.convertToEntitys(creditRepositoryJPA.findAllByCliente_Id(clientID));
     }
 
 
