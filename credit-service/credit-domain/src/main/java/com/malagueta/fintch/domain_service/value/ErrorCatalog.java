@@ -16,7 +16,10 @@ public enum ErrorCatalog {
     NORMAL_PRODUCT_CANT_BE_PENDING("PROD002","Productos no estado Pendentes nao podem voltar a estar Normal"),
     CAPITAL_NAO_PODE_SER_INFERIOS_AO_MIN_PRODUCOT("CPTOD001","Capital nao pode ser inferior a valor do producto associado"),
      CREDITO_CLIENT_CANT_BE_NULL("CRED003","Indica um cliente para o credito"),
-    VALOR_DO_PRODUCTO_MENOR_QUE_ZERO("PROD003","valor min deve ser maior que ZERO");
+    VALOR_DO_PRODUCTO_MENOR_QUE_ZERO("PROD003","valor min deve ser maior que ZERO"),
+    DATA_DA_AMORTIZACAO_DEVE_SER_MAIOR_QUE_DATA_ATUAL("CRED004","Data de amortizacao deve ser mairo que data atual" ),
+    DEVE_PREENCHER_AS_DATAS("CRED005","Deve preencher as datas associadas" ),
+    DATA_DA_AMORTIZACAO_DEVE_SER_MAIOR_QUE_DATA_DE_INICIO("CRED006","Data de Amortizao deve ser maior que a data de inicio" );
     @Getter
     private final String code;
     @Getter

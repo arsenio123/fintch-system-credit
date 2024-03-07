@@ -1,18 +1,21 @@
 package com.malagueta.fintch.domain_service.impl;
 
+import com.malagueta.fintch.FintechLogg;
 import com.malagueta.fintch.domain_service.value.Estado;
 import com.malagueta.fintch.entity.*;
 import com.malagueta.fintch.port.input.services.PrestacaoService;
 import com.malagueta.fintch.port.output.repository.*;
-import lombok.extern.java.Log;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 
 import java.time.LocalDate;
 import java.util.List;
 
 
-@Log
+
 public class PrestacaoServiceImpl implements PrestacaoService {
+
+    private Logger log= FintechLogg.getLogger(PrestacaoServiceImpl.class);
 
     @Override
     public List<PrestacaoEntity> listar(Long creditID,

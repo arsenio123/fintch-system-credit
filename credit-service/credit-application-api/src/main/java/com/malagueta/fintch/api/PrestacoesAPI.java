@@ -3,7 +3,9 @@ package com.malagueta.fintch.api;
 
 
 import com.malagueta.fintch.FintechLogg;
+import com.malagueta.fintch.config.AppConfig;
 import com.malagueta.fintch.domain_service.impl.PrestacaoServiceImpl;
+import com.malagueta.fintch.domain_service.impl.factory.PrestacaoServiceFactory;
 import com.malagueta.fintch.domain_service.value.Estado;
 import com.malagueta.fintch.entity.PrestacaoEntity;
 import com.malagueta.fintch.port.input.services.PrestacaoService;
@@ -27,6 +29,8 @@ public class PrestacoesAPI {
 
     private ProductoRepository productoRepository;
 
+    private AppConfig appConfig;
+
 
     /**
      * funcionalite should only be accessed from service, not form repository directet becouse you can miss logic
@@ -38,7 +42,8 @@ public class PrestacoesAPI {
      IntrestRepository intrestRepository,
      CapitalRepository capitalRepository,
      CreditRepository creditRepository,
-     ProductoRepository productoRepository){
+     ProductoRepository productoRepository,
+                          AppConfig appConfig){
 
         this.prestacaoRepository=prestacaoRepository;
         this.intrestRepository=intrestRepository;
@@ -46,7 +51,7 @@ public class PrestacoesAPI {
         this.creditRepository=creditRepository;
         this.productoRepository=productoRepository;
 
-        this.prestacaoService=new PrestacaoServiceImpl();
+        this.prestacaoService= PrestacaoServiceFactory.getPrestacaoService(appConfig.getPrestacaoServiceImpl());
     }
 
     @GetMapping("prestacao/list")

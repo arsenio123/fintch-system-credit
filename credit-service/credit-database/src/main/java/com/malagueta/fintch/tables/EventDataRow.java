@@ -24,6 +24,7 @@ public class EventDataRow implements Serializable {
     @Column(name = "event_output" ,length = 3000)
     private String eventOutput;
 
+    @Column(name = "session_id" ,length = 3000)
     private String sessionId;
 
     private LocalDateTime eventTime;

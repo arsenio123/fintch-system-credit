@@ -158,6 +158,15 @@ public class CreditServiceImpl extends EventSourcing implements CreditService  {
         if(creditoEntity.getValor()<creditoEntity.getProducto().getCapitalMin()){
             throw new RuntimeException(ErrorCatalog.CAPITAL_NAO_PODE_SER_INFERIOS_AO_MIN_PRODUCOT.toString());
         }
+        if(creditoEntity.getDoDate()==null||creditoEntity.getBeginDate()==null){
+            throw new RuntimeException(ErrorCatalog.DEVE_PREENCHER_AS_DATAS.toString());
+        }
+        if(creditoEntity.getDoDate().compareTo(LocalDate.now())<1){
+            throw new RuntimeException(ErrorCatalog.DATA_DA_AMORTIZACAO_DEVE_SER_MAIOR_QUE_DATA_ATUAL.toString());
+        }
+        if(creditoEntity.getDoDate().compareTo(creditoEntity.getBeginDate())<1){
+            throw new RuntimeException(ErrorCatalog.DATA_DA_AMORTIZACAO_DEVE_SER_MAIOR_QUE_DATA_DE_INICIO.toString());
+        }
         List<CreditEntity> openCredits =creditRepository.findOpenCredit(creditoEntity.getCliente());
 
         /*if(openCredits!=null && openCredits.size()<Integer.valueOf(env.getProperty("credit.max.limit")) //TODO licenca deve vir do Tenence pela base de dados

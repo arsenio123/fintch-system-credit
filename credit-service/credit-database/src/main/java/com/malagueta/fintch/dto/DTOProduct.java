@@ -37,7 +37,8 @@ public class DTOProduct {
                 .setDescricao(productoEntity.getDescricao())
                 .setTaxa(productoEntity.getTaxa())
                 .setCapitalMin(productoEntity.getCapitalMin())
-                .setEstado(productoEntity.getEstado());
+                .setEstado(productoEntity.getEstado())
+                .setIntervaloPrestacao(productoEntity.getIntervaloPrestacao());
         return producto;
     }
 
