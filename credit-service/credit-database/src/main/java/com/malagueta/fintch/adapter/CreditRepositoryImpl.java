@@ -88,5 +88,10 @@ private CreditoJDBCRepositoryImpl creditoJDBCRepository;
         return CreditDTO.convertToEntitys(creditRepositoryJPA.findAllByCliente_Id(clientID));
     }
 
+    @Override
+    public List<CreditEntity> findCreditoByCriteria(int records, CreditoSatus estado, long clieteID) {
+        return  CreditDTO.convertToEntitys(creditoJDBCRepository.findCreditoByCriteria(records,estado,clieteID));
+    }
+
 
 }

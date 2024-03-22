@@ -33,12 +33,30 @@ public class CriateCreditoTest {
     @Autowired
     private EventRepository eventRepository;
 
-   // @Autowired
+    @Autowired
     private CreditoAPI creditoAPI;
     @Autowired
     private AppConfig config;
 
     private CreditService service;
+
+
+    @Test
+    public  void findByCriteriaWithOneVigor(){
+        CreditoSatus satus=CreditoSatus.VIGOR;
+        int clientId=3;
+        int records =4;
+        Assert.isTrue(creditoAPI.findByCriteria(records,satus,clientId).size()==1,"Garanta que os dados devolvam 1 requisto nas condicoes pedidas");;
+    }
+
+
+    @Test
+    public  void findByCriteriaNoCritirea(){
+        CreditoSatus satus=null;
+        int clientId=0;
+        int records =4;
+        Assert.isTrue(creditoAPI.findByCriteria(records,satus,clientId).size()==4,"Garanta que os dados devolvam 1 requisto nas condicoes pedidas");;
+    }
 
     @Test
     public void testCreatCredito(){

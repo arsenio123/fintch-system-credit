@@ -22,4 +22,6 @@ public interface CreditService {
     CreditEntity updateStatus(Long id, CreditoSatus status);
 
     List<CreditEntity> findCredtitoByClientID(long clientID);
+
+    List<CreditEntity> findCreditoByCriteria(int records, CreditoSatus estado, long clieteID);
 }

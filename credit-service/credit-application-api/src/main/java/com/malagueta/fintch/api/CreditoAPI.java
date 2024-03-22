@@ -8,6 +8,7 @@ import com.malagueta.fintch.port.input.services.CreditService;
 import com.malagueta.fintch.entity.CreditEntity;
 import com.malagueta.fintch.port.output.repository.*;
 import com.malagueta.fintch.domain_service.impl.factory.CreditServiceFactory;
+import jakarta.annotation.Nullable;
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -141,12 +142,21 @@ public class CreditoAPI {
         return output;
     }
 
+    @GetMapping("credito/list/critirea/findByCriteria")
+    @CrossOrigin
+    public List<CreditEntity> findByCriteria(
+            @RequestParam(name="records", required = false) int records
+            ,@Nullable @RequestParam(name="estado", required = false) CreditoSatus estado
+            ,@RequestParam(name="clieteID",required = false) long clieteID){
+        return creditoService.findCreditoByCriteria(records, estado, clieteID);
+    }
+
     @GetMapping("credito/list/critirea/previes")
     @CrossOrigin
     public List<CreditEntity> findByCreditoWithPaginationPrevies(
             @RequestParam(name="id" ,required = false) Long id
             ,@RequestParam(name="records", required = false) int records
-            ,@RequestParam(name="estado", required = false) CreditoSatus estado
+            , @RequestParam(name="estado", required = false) CreditoSatus estado
             ,@RequestParam(name="initDate", required = false) LocalDateTime initDate
     ) {
         try{

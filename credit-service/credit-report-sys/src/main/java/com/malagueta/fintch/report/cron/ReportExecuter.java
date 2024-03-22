@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Component
-public class ReportSchedular {
+public class ReportExecuter {
 
     @Autowired
     private CreditRepository creditRepository;

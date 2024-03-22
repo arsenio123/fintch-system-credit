@@ -25,4 +25,6 @@ public interface CreditRepository {
     List<CreditEntity> findByDodateLessThan(LocalDate date);
 
     List<CreditEntity> findCredtitoByClientID(long clientID);
+
+    List<CreditEntity> findCreditoByCriteria(int records, CreditoSatus estado, long clieteID);
 }

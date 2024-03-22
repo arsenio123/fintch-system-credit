@@ -144,6 +144,11 @@ public class CreditServiceImpl extends EventSourcing implements CreditService  {
         return creditRepository.findCredtitoByClientID(clientID);
     }
 
+    @Override
+    public List<CreditEntity> findCreditoByCriteria(int records, CreditoSatus estado, long clieteID) {
+        return creditRepository.findCreditoByCriteria(records,estado,clieteID);
+    }
+
     public void loanValidation(CreditEntity creditoEntity)  {
 
 

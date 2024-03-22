@@ -177,6 +177,44 @@ public class CreditoJDBCRepositoryImpl
                 valorOp);
     }
 
+    public List<Credito> findCreditoByCriteria(int records, CreditoSatus estado, long clienteID) {
+        EntityManager em=getEntityManager();
+
+        CriteriaBuilder crBuilder=em.getCriteriaBuilder();
+        CriteriaQuery query=crBuilder.createQuery(Credito.class);
+        Root rootCredito=query.from(Credito.class);
+
+        //build predicate
+
+        List<Predicate> predicates=new ArrayList<>();
+
+
+
+            if(estado!=null
+            //        || !estado.equals("")
+            ){
+                log.debug("incluindo o estado="+estado);
+                Path<Long> estadoPath=rootCredito.get("estado");
+                predicates.add(crBuilder.equal(estadoPath,estado));
+            }
+            if(clienteID>0){
+                log.debug("incluido ID="+clienteID);
+                Path<Cliente> clienteIDPath=rootCredito.get("cliente");
+                predicates.add(crBuilder.equal(clienteIDPath,clienteID));
+            }
+        query.select(rootCredito)
+                .where(crBuilder
+                        .and(predicates.toArray(new Predicate[predicates.size()]))
+                ).orderBy(crBuilder.desc(rootCredito.get("id"))
+                );
+
+        //executa a query na base de dados
+        List<Credito> creditos=em.createQuery(query).setMaxResults(records).getResultList();
+        log.debug("findCreditoWithPagination " +creditos.toString());
+
+        return creditos;
+    }
+
 
     /**
      *  EntityManager manager=emgFactory.createEntityManager();
