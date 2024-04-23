@@ -24,7 +24,6 @@ public class ClienteEntity {
 
     private String email;
 
-
     private String idDoc;
 
     private  Setor setor;

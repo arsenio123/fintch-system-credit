@@ -68,7 +68,7 @@
             <groupId>com.malagueta</groupId>
             <artifactId>credit-logging</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <!--<scope>compile</scope>-->
         </dependency>
     </dependencies>
 

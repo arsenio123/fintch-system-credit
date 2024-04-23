@@ -19,7 +19,8 @@ public enum ErrorCatalog {
     VALOR_DO_PRODUCTO_MENOR_QUE_ZERO("PROD003","valor min deve ser maior que ZERO"),
     DATA_DA_AMORTIZACAO_DEVE_SER_MAIOR_QUE_DATA_ATUAL("CRED004","Data de amortizacao deve ser mairo que data atual" ),
     DEVE_PREENCHER_AS_DATAS("CRED005","Deve preencher as datas associadas" ),
-    DATA_DA_AMORTIZACAO_DEVE_SER_MAIOR_QUE_DATA_DE_INICIO("CRED006","Data de Amortizao deve ser maior que a data de inicio" );
+    DATA_DA_AMORTIZACAO_DEVE_SER_MAIOR_QUE_DATA_DE_INICIO("CRED006","Data de Amortizao deve ser maior que a data de inicio" ),
+    CREDITO_NO_ESTADO_EM_VIGOR_NAO_PODE_TER_CAMPOS_ALTERADOS("CRED007","Credito em vigor nao pode ter campos alterados");
     @Getter
     private final String code;
     @Getter

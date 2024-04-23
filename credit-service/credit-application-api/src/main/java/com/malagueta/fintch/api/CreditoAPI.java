@@ -1,6 +1,6 @@
 package com.malagueta.fintch.api;
 
-import com.malagueta.fintch.FintechLogg;
+//import com.malagueta.fintch.FintechLogg;
 import com.malagueta.fintch.audit.EventData;
 import com.malagueta.fintch.config.AppConfig;
 import com.malagueta.fintch.domain_service.value.CreditoSatus;
@@ -10,6 +10,7 @@ import com.malagueta.fintch.port.output.repository.*;
 import com.malagueta.fintch.domain_service.impl.factory.CreditServiceFactory;
 import jakarta.annotation.Nullable;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ import java.util.UUID;
 @RestController
 public class CreditoAPI {
 
-    Logger log= FintechLogg.getLogger(CreditoAPI.class);
+    Logger log= LoggerFactory.getLogger(CreditoAPI.class);//FintechLogg.getLogger(CreditoAPI.class);
     //Deve ser colocado on fly
 
     private  CreditRepository creditRepository;
@@ -123,8 +124,8 @@ public class CreditoAPI {
         System.err.println("header Authorization"+token);
         try{
             CreditEntity credito=CreditEntity.builder().id(id).estado(estado).build();
-
-            return creditoService.findByCreditoWithUpPagination(credito,records) ;
+            List<CreditEntity> creditEntities= creditoService.findByCreditoWithUpPagination(credito,records);
+            return creditEntities;
         }catch (Exception ex){
             log.error(ex.getMessage());
             throw ex;

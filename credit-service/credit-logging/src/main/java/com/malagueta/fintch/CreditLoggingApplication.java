@@ -11,11 +11,11 @@ public class CreditLoggingApplication {
 
     private static Logger log= LoggerFactory.getLogger(CreditLoggingApplication.class);
 
-   /* public static void main(String[] args) {
+    public static void main(String[] args) {
 
         SpringApplication.run(CreditLoggingApplication.class, args);
 
 
-    }*/
+    }
 
 }

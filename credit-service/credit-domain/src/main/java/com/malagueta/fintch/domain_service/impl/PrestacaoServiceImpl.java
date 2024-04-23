@@ -1,12 +1,12 @@
 package com.malagueta.fintch.domain_service.impl;
 
-import com.malagueta.fintch.FintechLogg;
+//import com.malagueta.fintch.FintechLogg;
 import com.malagueta.fintch.domain_service.value.Estado;
 import com.malagueta.fintch.entity.*;
 import com.malagueta.fintch.port.input.services.PrestacaoService;
 import com.malagueta.fintch.port.output.repository.*;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
+//import org.slf4j.Logger;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class PrestacaoServiceImpl implements PrestacaoService {
 
-    private Logger log= FintechLogg.getLogger(PrestacaoServiceImpl.class);
+    //private Logger log= FintechLogg.getLogger(PrestacaoServiceImpl.class);
 
     @Override
     public List<PrestacaoEntity> listar(Long creditID,
@@ -25,7 +25,9 @@ public class PrestacaoServiceImpl implements PrestacaoService {
                                         @NotNull PrestacaoRepository prestacaoRepository) {
         List<PrestacaoEntity> prestacaos= prestacaoRepository.findByCreditoStatusDates(creditID, status, begin,end);
         prestacaos.stream().forEach(
-                prestacao -> {log.info(prestacao.toString());}
+                prestacao -> {
+                    //log.info(prestacao.toString());
+                }
         );
         return prestacaos;
     }

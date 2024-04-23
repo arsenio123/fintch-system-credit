@@ -41,6 +41,7 @@ public class CreditDTO {
                 .valor(creditoRow.getValor())
                 .beginDate(creditoRow.getBeginDate())
                 .jurus(creditoRow.getJurus())
+                .estado(creditoRow.getEstado())
                 .build();
         return creditEntity;
     }

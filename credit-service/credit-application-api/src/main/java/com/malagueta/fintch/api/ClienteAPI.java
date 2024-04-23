@@ -1,12 +1,13 @@
 package com.malagueta.fintch.api;
 
-import com.malagueta.fintch.FintechLogg;
+//import com.malagueta.fintch.FintechLogg;
 import com.malagueta.fintch.config.AppConfig;
 import com.malagueta.fintch.domain_service.impl.factory.ClienteServiceFactory;
 import com.malagueta.fintch.entity.ClienteEntity;
 import com.malagueta.fintch.port.input.services.ClienteService;
 import com.malagueta.fintch.port.output.repository.ClienteRepository;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public class ClienteAPI {
 
 
-    Logger log=  FintechLogg.getLogger(ClienteAPI.class);
+    Logger log= LoggerFactory.getLogger(ClienteAPI.class);//FintechLogg.getLogger(ClienteAPI.class);
 
 
     private ClienteService clienteService;

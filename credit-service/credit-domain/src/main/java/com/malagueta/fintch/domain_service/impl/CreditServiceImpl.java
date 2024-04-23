@@ -1,6 +1,6 @@
 package com.malagueta.fintch.domain_service.impl;
 
-import com.malagueta.fintch.FintechLogg;
+//import com.malagueta.fintch.FintechLogg;
 import com.malagueta.fintch.audit.EventData;
 import com.malagueta.fintch.audit.EventSourcing;
 import com.malagueta.fintch.domain_service.value.CreditoSatus;
@@ -9,7 +9,7 @@ import com.malagueta.fintch.port.input.services.CreditService;
 import com.malagueta.fintch.domain_service.value.ErrorCatalog;
 import com.malagueta.fintch.port.output.repository.*;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
+//import org.slf4j.Logger;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,7 +22,7 @@ import java.util.UUID;
 
 
 public class CreditServiceImpl extends EventSourcing implements CreditService  {
-    private Logger log= FintechLogg.getLogger(CreditServiceImpl.class);
+   // private Logger log= FintechLogg.getLogger(CreditServiceImpl.class);
     private CapitalServiceDomain capitalServiceDomain;
 
     private IntrestServiceDomain intrestServiceDomain;
@@ -70,9 +70,12 @@ public class CreditServiceImpl extends EventSourcing implements CreditService  {
     @Override
 
     public CreditEntity creatCredit(@NotNull CreditEntity creditoEntity, EventData eventData) {
-        log.info("Inico de validacao da criacao do user "+creditoEntity);
+        //log.info("Inico de validacao da criacao do user "+creditoEntity);
+
+        CreditEntity foundCredito=creditRepository.findById(creditoEntity.getId());
 
         preValidation(creditoEntity);
+
         ClienteEntity cliente=clienteRepository.findById(creditoEntity.getCliente().getId());
         ProductoEntity producto=productoRepository.findById(creditoEntity.getProducto().getId());
         creditoEntity.setCliente(cliente);
@@ -80,38 +83,51 @@ public class CreditServiceImpl extends EventSourcing implements CreditService  {
         creditoEntity.setCreatDate(LocalDateTime.now());
         creditoEntity.setUpdateDate(LocalDateTime.now());
 
-
         loanValidation(creditoEntity);
 
+        creditoEntity= creditRepository.presiste(creditoEntity);
 
-            log.debug("criando o credito "+creditoEntity);
-            creditoEntity= creditRepository.presiste(creditoEntity);
+        //registando o evento de criacao de loan
+        eventData.setEventName(CreditEntity.class.getName());
+        eventData.setEventInput(creditoEntity.toString());
+        eventData.setOperationId(UUID.randomUUID());
+        eventData.setEventTime(LocalDateTime.now());
+        eventData.setEventOutput(creditoEntity.toString());
 
-            //registando o evento de criacao de loan
-            eventData.setEventName(CreditEntity.class.getName());
-            eventData.setEventInput(creditoEntity.toString());
-            eventData.setOperationId(UUID.randomUUID());
-            eventData.setEventTime(LocalDateTime.now());
-            eventData.setEventOutput(creditoEntity.toString());
+        // Implementar rollback
+        eventRepository.registeEvent(eventData);
 
-            // Implementar rollback
-            eventRepository.registeEvent(eventData);
 
+        //Aprovar credito
+        if(foundCredito!=null&&creditoEntity.getEstado().equals(CreditoSatus.VIGOR)){
+
+            validatAproval(foundCredito);
+
+            //gera as despesas para creditos aprovados
             CapitalEntity capital=capitalServiceDomain.addMoney(creditoEntity,Double.valueOf(creditoEntity.getValor()),"Valor de desembolso");
 
             IntrestEntity intrest=intrestServiceDomain.addMoney(creditoEntity,0.0,"juros no desembolso");
             eventRepository.registeEvent(eventData);
+        }
+
+
+
+            //log.debug("criando o credito "+creditoEntity);
+
+
+
+
+
             return creditoEntity;
 
 
 
     }
-/*
-    public void creatCreditRollBAck(){
 
+    private void validatAproval(CreditEntity credit) {
+        if(credit.getEstado().equals(CreditoSatus.VIGOR))
+            throw new RuntimeException(ErrorCatalog.CREDITO_NO_ESTADO_EM_VIGOR_NAO_PODE_TER_CAMPOS_ALTERADOS.toString());
     }
-
-*/
 
 
     @Override
@@ -153,7 +169,7 @@ public class CreditServiceImpl extends EventSourcing implements CreditService  {
 
 
         if(creditoEntity.getCliente()==null|| creditoEntity.getCliente().getId()==0){
-            log.debug("Erro ao Criar "+ creditoEntity+ "cliente nao tem permisao para ciar um novo cerdito deve fecha os"  );
+           // log.debug("Erro ao Criar "+ creditoEntity+ "cliente nao tem permisao para ciar um novo cerdito deve fecha os"  );
             throw new RuntimeException(ErrorCatalog.CREDITO_CLIENT_MAST_EXIST.toString());
         }
 

@@ -24,7 +24,8 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     @Override
     public ClienteEntity findById(Long id) {
-        return ClienteDTO.convertToEntity(clienteRepositoryJpa.findById(id).orElse(null));
+        //return ClienteDTO.convertToEntity(clienteRepositoryJpa.findById(id).orElse(null));
+        return ClienteDTO.convertToEntity(clienteRepositoryJpa.findById(id).orElseThrow());
     }
 
     @Transactional
