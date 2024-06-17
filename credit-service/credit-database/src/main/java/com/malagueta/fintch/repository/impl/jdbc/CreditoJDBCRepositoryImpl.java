@@ -1,6 +1,6 @@
 package com.malagueta.fintch.repository.impl.jdbc;
 
-import com.malagueta.fintch.domain_service.value.CreditoSatus;
+import com.malagueta.fintch.services.value.CreditoSatus;
 import com.malagueta.fintch.repository.CreditoRepositoryDB;
 import com.malagueta.fintch.repository.GenericJDBCRepository;
 import com.malagueta.fintch.repository.impl.jap.SearchCredito;
@@ -209,7 +209,12 @@ public class CreditoJDBCRepositoryImpl
                 );
 
         //executa a query na base de dados
-        List<Credito> creditos=em.createQuery(query).setMaxResults(records).getResultList();
+        List<Credito> creditos;
+        if(records<=0){
+            creditos = em.createQuery(query).getResultList();
+        }else {
+            creditos = em.createQuery(query).setMaxResults(records).getResultList();
+        }
         log.debug("findCreditoWithPagination " +creditos.toString());
 
         return creditos;

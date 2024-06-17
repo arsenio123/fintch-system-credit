@@ -1,15 +1,12 @@
 package com.malagueta.fintch.tables;
 
-import com.malagueta.fintch.domain_service.value.CreditoSatus;
+import com.malagueta.fintch.services.value.CreditoSatus;
 import jakarta.persistence.*;
 import lombok.ToString;
-import org.springframework.lang.NonNull;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.util.Date;
 
 @ToString
 @Entity

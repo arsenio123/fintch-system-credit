@@ -1,11 +1,10 @@
 package com.malagueta.fintch;
 
 import com.malagueta.fintch.api.CreditoAPI;
-import com.malagueta.fintch.audit.EventData;
 import com.malagueta.fintch.config.AppConfig;
 import com.malagueta.fintch.entity.ClienteEntity;
 import com.malagueta.fintch.port.input.services.CreditService;
-import com.malagueta.fintch.domain_service.value.CreditoSatus;
+import com.malagueta.fintch.services.value.CreditoSatus;
 import com.malagueta.fintch.entity.CreditEntity;
 import com.malagueta.fintch.entity.ProductoEntity;
 import com.malagueta.fintch.port.output.repository.*;

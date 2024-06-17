@@ -1,6 +1,5 @@
-package com.malagueta.fintch.domain_service.impl.factory;
+package com.malagueta.fintch.services.cliente;
 
-import com.malagueta.fintch.domain_service.impl.ClienteServiceImpl;
 import com.malagueta.fintch.port.input.services.ClienteService;
 
 public class ClienteServiceFactory {

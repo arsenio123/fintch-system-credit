@@ -1,13 +1,13 @@
 package com.malagueta.fintch.api;
 
-//import com.malagueta.fintch.FintechLogg;
 import com.malagueta.fintch.audit.EventData;
 import com.malagueta.fintch.config.AppConfig;
-import com.malagueta.fintch.domain_service.value.CreditoSatus;
+import com.malagueta.fintch.services.exception.ServiceException;
+import com.malagueta.fintch.services.value.CreditoSatus;
 import com.malagueta.fintch.port.input.services.CreditService;
 import com.malagueta.fintch.entity.CreditEntity;
 import com.malagueta.fintch.port.output.repository.*;
-import com.malagueta.fintch.domain_service.impl.factory.CreditServiceFactory;
+import com.malagueta.fintch.services.credito.CreditServiceFactory;
 import jakarta.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,9 @@ import java.util.UUID;
 @RestController
 public class CreditoAPI {
 
-    Logger log= LoggerFactory.getLogger(CreditoAPI.class);//FintechLogg.getLogger(CreditoAPI.class);
+    Logger log=
+            LoggerFactory.getLogger(CreditoAPI.class);
+    //FintechLogg.getLogger(CreditoAPI.class);
     //Deve ser colocado on fly
 
     private  CreditRepository creditRepository;
@@ -70,7 +72,15 @@ public class CreditoAPI {
          eventData.setEventInput(creditEntity.toString());
          eventData.setSessionId(sessionID);
          eventData.setOperationId(UUID.randomUUID());
-         creditEntity= creditoService.creatCredit(creditEntity, eventData);
+        try {
+            creditEntity= creditoService.creatCredit(creditEntity, eventData);
+        } catch (ServiceException e) {
+            throw new RuntimeException(e);
+        }catch (Exception ex){
+            ex.printStackTrace();
+            log.error(ex.getStackTrace().toString());
+            throw  ex;
+        }
         return creditEntity;
     }
     @PostMapping("credito/atualiza")
@@ -79,7 +89,11 @@ public class CreditoAPI {
         log.debug("creating credit from input: "+creditEntity.toString());
         EventData eventData= EventData.builder().sessionId(sessionID).build();
 
-        return creditEntity= creditoService.creatCredit(creditEntity,eventData);
+        try {
+            return creditEntity= creditoService.creatCredit(creditEntity,eventData);
+        } catch (ServiceException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -180,6 +194,8 @@ public class CreditoAPI {
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String errorHandler(RuntimeException ex){
+        log.info(ex.getMessage());
+        log.error(ex.getStackTrace().toString());
         return ex.getMessage();
     }
 

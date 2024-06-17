@@ -1,7 +1,7 @@
-package com.malagueta.fintch.domain_service.impl;
+package com.malagueta.fintch.services.producto;
 
-import com.malagueta.fintch.domain_service.value.ErrorCatalog;
-import com.malagueta.fintch.domain_service.value.ProductoEstados;
+import com.malagueta.fintch.services.value.ErrorCatalog;
+import com.malagueta.fintch.services.value.ProductoEstados;
 import com.malagueta.fintch.entity.ProductoEntity;
 import com.malagueta.fintch.port.input.services.ProductoServico;
 import com.malagueta.fintch.port.output.repository.ProductoRepository;

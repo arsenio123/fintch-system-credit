@@ -1,4 +1,4 @@
-package com.malagueta.fintch.domain_service.impl;
+package com.malagueta.fintch.services.pagamento;
 
 import com.malagueta.fintch.entity.CapitalEntity;
 import com.malagueta.fintch.entity.IntrestEntity;
@@ -6,6 +6,10 @@ import com.malagueta.fintch.entity.PagamentoEntity;
 import com.malagueta.fintch.entity.PrestacaoEntity;
 import com.malagueta.fintch.port.input.services.PagamentoService;
 import com.malagueta.fintch.port.output.repository.*;
+import com.malagueta.fintch.services.capital.CapitalServiceDomain;
+import com.malagueta.fintch.services.intrest.IntrestServiceDomain;
+import com.malagueta.fintch.services.pagamento.obsevals.FazerPagamentoEntryPintObserval;
+import com.malagueta.fintch.services.pagamento.obsevals.FazerPagamentoExitPointObserval;
 //import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -38,6 +42,7 @@ public class PagamentoServiceImpl implements PagamentoService {
     }
     @Override
     public PagamentoEntity fazerPagameto(PagamentoEntity pagamentoEntity) {
+            FazerPagamentoEntryPintObserval.fire(pagamentoEntity);
         //log.debug(pagamentoEntity.toString());
 
         long prestacaID=pagamentoEntity.getPrestacao().getId();
@@ -67,6 +72,7 @@ public class PagamentoServiceImpl implements PagamentoService {
 
 
         pagamentoEntity=pagamentoRepository.fazerPagameto(pagamentoEntity);
+        FazerPagamentoExitPointObserval.fire(pagamentoEntity);
         return pagamentoEntity;
     }
 

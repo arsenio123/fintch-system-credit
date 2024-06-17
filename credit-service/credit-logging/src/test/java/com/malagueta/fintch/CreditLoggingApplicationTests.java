@@ -3,6 +3,7 @@ package com.malagueta.fintch;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,6 +17,10 @@ class CreditLoggingApplicationTests {
     void logFactoryTest() {
         Logger logger= FintechLogg.getLogger("TestesLogges");
         logger.debug("logando debug");
+        Logger log= LoggerFactory.getLogger(CreditLoggingApplicationTests.class);
+        log.info("CreditLoggingApplicationTests info");
+        log.error("CreditLoggingApplicationTests info");
+        log.debug("CreditLoggingApplicationTests info");
     }
 
     @Test

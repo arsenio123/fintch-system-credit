@@ -1,6 +1,6 @@
 package com.malagueta.fintch.tables;
 
-import com.malagueta.fintch.domain_service.value.ProductoEstados;
+import com.malagueta.fintch.services.value.ProductoEstados;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

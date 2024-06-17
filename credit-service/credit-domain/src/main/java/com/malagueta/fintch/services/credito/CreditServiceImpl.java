@@ -1,12 +1,15 @@
-package com.malagueta.fintch.domain_service.impl;
+package com.malagueta.fintch.services.credito;
 
 //import com.malagueta.fintch.FintechLogg;
 import com.malagueta.fintch.audit.EventData;
 import com.malagueta.fintch.audit.EventSourcing;
-import com.malagueta.fintch.domain_service.value.CreditoSatus;
+import com.malagueta.fintch.services.exception.ServiceException;
+import com.malagueta.fintch.services.capital.CapitalServiceDomain;
+import com.malagueta.fintch.services.intrest.IntrestServiceDomain;
+import com.malagueta.fintch.services.value.CreditoSatus;
 import com.malagueta.fintch.entity.*;
 import com.malagueta.fintch.port.input.services.CreditService;
-import com.malagueta.fintch.domain_service.value.ErrorCatalog;
+import com.malagueta.fintch.services.value.ErrorCatalog;
 import com.malagueta.fintch.port.output.repository.*;
 import org.jetbrains.annotations.NotNull;
 //import org.slf4j.Logger;
@@ -69,7 +72,7 @@ public class CreditServiceImpl extends EventSourcing implements CreditService  {
 
     @Override
 
-    public CreditEntity creatCredit(@NotNull CreditEntity creditoEntity, EventData eventData) {
+    public CreditEntity creatCredit(@NotNull CreditEntity creditoEntity, EventData eventData) throws ServiceException {
         //log.info("Inico de validacao da criacao do user "+creditoEntity);
 
         CreditEntity foundCredito=creditRepository.findById(creditoEntity.getId());
@@ -84,6 +87,7 @@ public class CreditServiceImpl extends EventSourcing implements CreditService  {
         creditoEntity.setUpdateDate(LocalDateTime.now());
 
         loanValidation(creditoEntity);
+        if(foundCredito==null){creditoEntity.setEstado(CreditoSatus.PENDENTE);}
 
         creditoEntity= creditRepository.presiste(creditoEntity);
 
@@ -99,7 +103,9 @@ public class CreditServiceImpl extends EventSourcing implements CreditService  {
 
 
         //Aprovar credito
-        if(foundCredito!=null&&creditoEntity.getEstado().equals(CreditoSatus.VIGOR)){
+        if(foundCredito!=null
+                && creditoEntity.getEstado().equals(CreditoSatus.VIGOR)
+        && !foundCredito.getEstado().equals(CreditoSatus.VIGOR)){
 
             validatAproval(foundCredito);
 
@@ -165,28 +171,28 @@ public class CreditServiceImpl extends EventSourcing implements CreditService  {
         return creditRepository.findCreditoByCriteria(records,estado,clieteID);
     }
 
-    public void loanValidation(CreditEntity creditoEntity)  {
+    public void loanValidation(CreditEntity creditoEntity) throws ServiceException {
 
 
         if(creditoEntity.getCliente()==null|| creditoEntity.getCliente().getId()==0){
            // log.debug("Erro ao Criar "+ creditoEntity+ "cliente nao tem permisao para ciar um novo cerdito deve fecha os"  );
-            throw new RuntimeException(ErrorCatalog.CREDITO_CLIENT_MAST_EXIST.toString());
+            throw new ServiceException(ErrorCatalog.CREDITO_CLIENT_MAST_EXIST.toString());
         }
 
         if(creditoEntity.getValor()<=0){
-            throw new RuntimeException(ErrorCatalog.CREDITO_VALUE_CANT_BE_LESS_THAN_ZERO.toString());
+            throw new ServiceException(ErrorCatalog.CREDITO_VALUE_CANT_BE_LESS_THAN_ZERO.toString());
         }
         if(creditoEntity.getValor()<creditoEntity.getProducto().getCapitalMin()){
-            throw new RuntimeException(ErrorCatalog.CAPITAL_NAO_PODE_SER_INFERIOS_AO_MIN_PRODUCOT.toString());
+            throw new ServiceException(ErrorCatalog.CAPITAL_NAO_PODE_SER_INFERIOS_AO_MIN_PRODUCOT.toString());
         }
         if(creditoEntity.getDoDate()==null||creditoEntity.getBeginDate()==null){
-            throw new RuntimeException(ErrorCatalog.DEVE_PREENCHER_AS_DATAS.toString());
+            throw new ServiceException(ErrorCatalog.DEVE_PREENCHER_AS_DATAS.toString());
         }
         if(creditoEntity.getDoDate().compareTo(LocalDate.now())<1){
-            throw new RuntimeException(ErrorCatalog.DATA_DA_AMORTIZACAO_DEVE_SER_MAIOR_QUE_DATA_ATUAL.toString());
+            throw new ServiceException(ErrorCatalog.DATA_DA_AMORTIZACAO_DEVE_SER_MAIOR_QUE_DATA_ATUAL.toString());
         }
         if(creditoEntity.getDoDate().compareTo(creditoEntity.getBeginDate())<1){
-            throw new RuntimeException(ErrorCatalog.DATA_DA_AMORTIZACAO_DEVE_SER_MAIOR_QUE_DATA_DE_INICIO.toString());
+            throw new ServiceException(ErrorCatalog.DATA_DA_AMORTIZACAO_DEVE_SER_MAIOR_QUE_DATA_DE_INICIO.toString());
         }
         List<CreditEntity> openCredits =creditRepository.findOpenCredit(creditoEntity.getCliente());
 
@@ -204,12 +210,12 @@ public class CreditServiceImpl extends EventSourcing implements CreditService  {
         }*/
     }
 
-    private void preValidation(CreditEntity creditoEntity) {
+    private void preValidation(CreditEntity creditoEntity) throws ServiceException {
         if(creditoEntity.getProducto()==null|| creditoEntity.getProducto().getId()==0){
-            throw new RuntimeException(ErrorCatalog.CREDITO_PRODUCT_CANT_BE_NULL.toString());
+            throw new ServiceException(ErrorCatalog.CREDITO_PRODUCT_CANT_BE_NULL.toString());
         }
         if(creditoEntity.getCliente()==null|| creditoEntity.getCliente().getId()==0){
-            throw new RuntimeException(ErrorCatalog.CREDITO_CLIENT_CANT_BE_NULL.toString());
+            throw new ServiceException(ErrorCatalog.CREDITO_CLIENT_CANT_BE_NULL.toString());
         }
     }
 

@@ -2,9 +2,9 @@ package com.malagueta.fintch.api;
 
 //import com.malagueta.fintch.FintechLogg;
 import com.malagueta.fintch.config.AppConfig;
-import com.malagueta.fintch.domain_service.impl.CapitalServiceDomain;
-import com.malagueta.fintch.domain_service.impl.IntrestServiceDomain;
-import com.malagueta.fintch.domain_service.impl.factory.PagamentoServiceFactory;
+import com.malagueta.fintch.services.capital.CapitalServiceDomain;
+import com.malagueta.fintch.services.intrest.IntrestServiceDomain;
+import com.malagueta.fintch.services.pagamento.PagamentoServiceFactory;
 import com.malagueta.fintch.entity.PagamentoEntity;
 import com.malagueta.fintch.port.input.services.PagamentoService;
 import com.malagueta.fintch.port.output.repository.*;

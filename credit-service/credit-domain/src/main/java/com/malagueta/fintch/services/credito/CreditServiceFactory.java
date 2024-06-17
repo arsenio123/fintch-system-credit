@@ -1,6 +1,6 @@
-package com.malagueta.fintch.domain_service.impl.factory;
+package com.malagueta.fintch.services.credito;
 
-import com.malagueta.fintch.domain_service.impl.CreditServiceImpl;
+import com.malagueta.fintch.services.credito.CreditServiceImpl;
 import com.malagueta.fintch.port.input.services.CreditService;
 import com.malagueta.fintch.port.output.repository.*;
 

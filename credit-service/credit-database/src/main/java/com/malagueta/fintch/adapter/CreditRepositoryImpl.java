@@ -1,6 +1,6 @@
 package com.malagueta.fintch.adapter;
 
-import com.malagueta.fintch.domain_service.value.CreditoSatus;
+import com.malagueta.fintch.services.value.CreditoSatus;
 import com.malagueta.fintch.dto.CreditDTO;
 import com.malagueta.fintch.entity.ClienteEntity;
 import com.malagueta.fintch.entity.CreditEntity;

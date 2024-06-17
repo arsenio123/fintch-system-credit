@@ -30,6 +30,8 @@ public class ClienteDTO {
             clienteEntity.setTelefone(cliente.getTelefone());
             clienteEntity.setSetor(cliente.getSetor());
             clienteEntity.setDataNascimento(cliente.getDataNascimento());
+            clienteEntity.setProfissao(cliente.getProfissao());
+            clienteEntity.setEmpresa(cliente.getEmpresa());
         return clienteEntity;
         }
         return null;
@@ -58,6 +60,8 @@ public class ClienteDTO {
             rowCliente.setRendimento(clienteEntity.getRendimento());
             rowCliente.setSetor(clienteEntity.getSetor());
             rowCliente.setNumberDoc(clienteEntity.getNumberDoc());
+            rowCliente.setProfissao(clienteEntity.getProfissao());
+            rowCliente.setEmpresa(clienteEntity.getEmpresa());
             return rowCliente;
         }
         return null;

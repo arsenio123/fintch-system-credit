@@ -1,6 +1,6 @@
 package com.malagueta.fintch.adapter;
 
-import com.malagueta.fintch.domain_service.value.Estado;
+import com.malagueta.fintch.services.value.Estado;
 import com.malagueta.fintch.dto.CreditDTO;
 import com.malagueta.fintch.dto.DTOPrestacao;
 import com.malagueta.fintch.entity.CreditEntity;

@@ -1,4 +1,4 @@
-package com.malagueta.fintch.domain_service.impl;
+package com.malagueta.fintch.services.intrest;
 
 import com.malagueta.fintch.entity.CreditEntity;
 import com.malagueta.fintch.entity.IntrestEntity;

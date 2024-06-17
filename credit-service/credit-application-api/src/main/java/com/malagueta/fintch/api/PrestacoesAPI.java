@@ -2,8 +2,8 @@ package com.malagueta.fintch.api;
 
 //import com.malagueta.fintch.FintechLogg;
 import com.malagueta.fintch.config.AppConfig;
-import com.malagueta.fintch.domain_service.impl.factory.PrestacaoServiceFactory;
-import com.malagueta.fintch.domain_service.value.Estado;
+import com.malagueta.fintch.services.prestacao.PrestacaoServiceFactory;
+import com.malagueta.fintch.services.value.Estado;
 import com.malagueta.fintch.entity.PrestacaoEntity;
 import com.malagueta.fintch.port.input.services.PrestacaoService;
 import com.malagueta.fintch.port.output.repository.*;

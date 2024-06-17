@@ -30,6 +30,10 @@ public class ClienteEntity {
 
     private String numberDoc;
 
+    private String profissao ="";
+
+    private String empresa="";
+
     public enum Setor{
         PRIVADO("PRIVADO"),PUBLICO("PUBLICO");
         private final String value;

@@ -1,6 +1,6 @@
-package com.malagueta.fintch.domain_service.impl.factory;
+package com.malagueta.fintch.services.prestacao;
 
-import com.malagueta.fintch.domain_service.impl.PrestacaoServiceImpl;
+import com.malagueta.fintch.services.prestacao.PrestacaoServiceImpl;
 import com.malagueta.fintch.port.input.services.PrestacaoService;
 
 public class PrestacaoServiceFactory {

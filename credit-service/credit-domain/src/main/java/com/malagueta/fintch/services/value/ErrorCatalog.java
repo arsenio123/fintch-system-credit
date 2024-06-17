@@ -1,7 +1,6 @@
-package com.malagueta.fintch.domain_service.value;
+package com.malagueta.fintch.services.value;
 
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
 //@ToString

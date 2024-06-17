@@ -38,6 +38,7 @@ public class DTOPrestacao {
         prestacaoEntity.setIntrest(DTOIntrest.convertToEntity(prestacao.getIntrest()));
         prestacaoEntity.setContaCreditada(prestacao.getContaCreditada());
         prestacaoEntity.setValorCapitaPorPagar(prestacao.getValorCapitaPorPagar());
+        prestacaoEntity.setCapital(DTOCapital.convertToEntity(prestacao.getCapital()));
 
         return prestacaoEntity;
     }

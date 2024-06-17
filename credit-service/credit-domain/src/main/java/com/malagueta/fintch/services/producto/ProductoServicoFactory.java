@@ -1,6 +1,6 @@
-package com.malagueta.fintch.domain_service.impl.factory;
+package com.malagueta.fintch.services.producto;
 
-import com.malagueta.fintch.domain_service.impl.ProductoServicoImpl;
+import com.malagueta.fintch.services.producto.ProductoServicoImpl;
 import com.malagueta.fintch.port.input.services.ProductoServico;
 import com.malagueta.fintch.port.output.repository.ProductoRepository;
 

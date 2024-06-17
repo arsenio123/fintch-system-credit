@@ -36,6 +36,7 @@ public class DTOPagamento {
                 .prestacao(DTOPrestacao.convetToEntity(pagamento.getPrestacao()))
                 .dataDePagametno(pagamento.getDataDePagametno())
                 .createdBay(pagamento.getCreatedBay())
+                .valorPago(pagamento.getValorPago())
                 .build();
         return pagamentoEntity;
     }

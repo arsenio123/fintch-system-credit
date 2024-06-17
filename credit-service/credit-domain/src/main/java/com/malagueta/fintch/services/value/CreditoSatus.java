@@ -1,4 +1,4 @@
-package com.malagueta.fintch.domain_service.value;
+package com.malagueta.fintch.services.value;
 
 public enum CreditoSatus {
     PENDENTE("PENDENTE"),VIGOR("VIGOR"),CANCELADO("CANCELADO"),VENCIDO("VENCIDO");

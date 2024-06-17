@@ -1,6 +1,6 @@
 package com.malagueta.fintch.port.output.repository;
 
-import com.malagueta.fintch.domain_service.value.ProductoEstados;
+import com.malagueta.fintch.services.value.ProductoEstados;
 import com.malagueta.fintch.entity.ProductoEntity;
 
 import java.util.List;

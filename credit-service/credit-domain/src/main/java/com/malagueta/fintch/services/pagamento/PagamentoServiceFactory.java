@@ -1,6 +1,5 @@
-package com.malagueta.fintch.domain_service.impl.factory;
+package com.malagueta.fintch.services.pagamento;
 
-import com.malagueta.fintch.domain_service.impl.PagamentoServiceImpl;
 import com.malagueta.fintch.port.input.services.PagamentoService;
 import com.malagueta.fintch.port.output.repository.*;
 

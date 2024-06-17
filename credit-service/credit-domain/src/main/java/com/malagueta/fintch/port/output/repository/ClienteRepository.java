@@ -12,4 +12,6 @@ public interface ClienteRepository {
     ClienteEntity save(ClienteEntity clienteEntity);
 
     public ClienteEntity findByName(String name);
+
+    ClienteEntity atualizar(ClienteEntity clienteEntity);
 }

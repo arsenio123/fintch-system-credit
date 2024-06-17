@@ -1,7 +1,9 @@
-package com.malagueta.fintch.domain_service.impl;
+package com.malagueta.fintch.services.prestacao;
 
 //import com.malagueta.fintch.FintechLogg;
-import com.malagueta.fintch.domain_service.value.Estado;
+import com.malagueta.fintch.services.capital.CapitalServiceDomain;
+import com.malagueta.fintch.services.intrest.IntrestServiceDomain;
+import com.malagueta.fintch.services.value.Estado;
 import com.malagueta.fintch.entity.*;
 import com.malagueta.fintch.port.input.services.PrestacaoService;
 import com.malagueta.fintch.port.output.repository.*;
@@ -61,6 +63,7 @@ public class PrestacaoServiceImpl implements PrestacaoService {
         );
 
         prestacaoEntity.getCredito().setProducto(productoEntity);
+        prestacaoEntity.setVencimento(LocalDate.now().plusDays(productoEntity.getIntervaloPrestacao()));
         if(prestacaoEntity.getCredito().getJurus()<=0){
             taxa=Double.valueOf(productoEntity.getTaxa());
         }
