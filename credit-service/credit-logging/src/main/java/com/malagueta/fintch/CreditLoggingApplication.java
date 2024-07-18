@@ -6,16 +6,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
-@SpringBootApplication
+//@SpringBootApplication
 public class CreditLoggingApplication {
 
     private static Logger log= LoggerFactory.getLogger(CreditLoggingApplication.class);
 
-    public static void main(String[] args) {
-
-        SpringApplication.run(CreditLoggingApplication.class, args);
-
-
-    }
+//    public static void main(String[] args) {
+//
+//        SpringApplication.run(CreditLoggingApplication.class, args);
+//
+//
+//    }
 
 }

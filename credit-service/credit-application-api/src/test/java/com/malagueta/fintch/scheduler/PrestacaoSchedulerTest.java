@@ -1,7 +1,7 @@
 package com.malagueta.fintch.scheduler;
 
 
-import com.malagueta.fintch.App;
+import com.malagueta.fintch.ControllerApp;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 
 @SpringBootTest
-@ContextConfiguration(classes = App.class)
+@ContextConfiguration(classes = ControllerApp.class)
 public class PrestacaoSchedulerTest {
     private Logger log= LoggerFactory.getLogger(PrestacaoSchedulerTest.class);
 

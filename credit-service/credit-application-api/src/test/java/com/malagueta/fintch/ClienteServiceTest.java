@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 @SpringBootTest
-@ContextConfiguration(classes = App.class)
+@ContextConfiguration(classes = ControllerApp.class)
 public class ClienteServiceTest {
 
     @Autowired

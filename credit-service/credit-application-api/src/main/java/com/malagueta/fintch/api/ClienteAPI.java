@@ -1,6 +1,6 @@
 package com.malagueta.fintch.api;
 
-import com.malagueta.fintch.FintechLogg;
+//import com.malagueta.fintch.FintechLogg;
 import com.malagueta.fintch.config.AppConfig;
 import com.malagueta.fintch.services.exception.ServiceException;
 import com.malagueta.fintch.services.cliente.ClienteServiceFactory;

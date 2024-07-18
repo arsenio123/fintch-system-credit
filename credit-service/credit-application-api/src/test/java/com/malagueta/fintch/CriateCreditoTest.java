@@ -16,7 +16,7 @@ import org.springframework.util.Assert;
 import java.util.List;
 
 @SpringBootTest
-@ContextConfiguration(classes = App.class)
+@ContextConfiguration(classes = ControllerApp.class)
 public class CriateCreditoTest {
     @Autowired
     private CreditRepository creditRepository;

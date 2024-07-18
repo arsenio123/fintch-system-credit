@@ -45,8 +45,9 @@ public class PrestacaoProcedureImpl implements PrestacaoProcedure{
         creditEntitys.stream().forEach(creditEntity -> {
             if(creditEntity.getBeginDate().getDayOfMonth()== now.getDayOfMonth()){
                 PrestacaoEntity prestacaoEntity=prestacaoRepository.findFirstByCreditoOrderByIdDesc(creditEntity);
-                    //valida se a data da ultima prestacao mais o intervalo das prestacoes é inferior a data atual
-                    if(isPrestacaoOverdo(prestacaoEntity)){
+
+                //valida se a data da ultima prestacao mais o intervalo das prestacoes é inferior a data atual
+                    if(isPrestacaoOverDo(prestacaoEntity)){
 
                         prestacaoEntity=new PrestacaoEntity();
                         prestacaoEntity.setCredito(creditEntity);
@@ -66,7 +67,7 @@ public class PrestacaoProcedureImpl implements PrestacaoProcedure{
         //log.info("creditos que estao em vigor "+creditEntityList.size());
     }
 
-    private boolean isPrestacaoOverdo(PrestacaoEntity prestacaoEntity){
+    private boolean isPrestacaoOverDo(PrestacaoEntity prestacaoEntity){
         if(prestacaoEntity==null){
             return true;
         }else{
