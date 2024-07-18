@@ -29,6 +29,9 @@ public class CreditDTO {
     }
 
     public static CreditEntity convertToEntity(Credito creditoRow) {
+        if(creditoRow==null){
+            return null;
+        }
         CreditEntity creditEntity= CreditEntity.builder()
                 .id(creditoRow.getId())
                 .cliente(ClienteDTO.convertToEntity(creditoRow.getCliente()))
@@ -41,6 +44,7 @@ public class CreditDTO {
                 .valor(creditoRow.getValor())
                 .beginDate(creditoRow.getBeginDate())
                 .jurus(creditoRow.getJurus())
+                .estado(creditoRow.getEstado())
                 .build();
         return creditEntity;
     }

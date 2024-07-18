@@ -1,8 +1,8 @@
 package com.malagueta.fintch.api;
 
-import com.malagueta.fintch.domain_service.impl.CapitalServiceDomain;
-import com.malagueta.fintch.domain_service.impl.CreditServiceImpl;
-import com.malagueta.fintch.domain_service.impl.IntrestServiceDomain;
+import com.malagueta.fintch.services.capital.CapitalServiceDomain;
+import com.malagueta.fintch.services.credito.CreditServiceImpl;
+import com.malagueta.fintch.services.intrest.IntrestServiceDomain;
 import com.malagueta.fintch.entity.CapitalEntity;
 import com.malagueta.fintch.entity.CreditEntity;
 import com.malagueta.fintch.entity.IntrestEntity;

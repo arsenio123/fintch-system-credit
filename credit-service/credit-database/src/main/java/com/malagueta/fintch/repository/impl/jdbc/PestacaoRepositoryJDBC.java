@@ -1,7 +1,6 @@
 package com.malagueta.fintch.repository.impl.jdbc;
 
-import com.malagueta.fintch.domain_service.value.Estado;
-import com.malagueta.fintch.port.output.repository.PrestacaoRepository;
+import com.malagueta.fintch.services.value.Estado;
 import com.malagueta.fintch.repository.GenericJDBCRepository;
 import com.malagueta.fintch.tables.Prestacao;
 import jakarta.persistence.EntityManager;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Repository

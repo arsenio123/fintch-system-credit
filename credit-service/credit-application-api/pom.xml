@@ -68,8 +68,27 @@
             <groupId>com.malagueta</groupId>
             <artifactId>credit-logging</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <!--<scope>compile</scope>-->
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.malagueta.fintch.ControllerApp</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

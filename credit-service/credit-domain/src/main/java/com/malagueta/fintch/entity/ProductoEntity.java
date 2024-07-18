@@ -1,7 +1,7 @@
 package com.malagueta.fintch.entity;
 
 
-import com.malagueta.fintch.domain_service.value.ProductoEstados;
+import com.malagueta.fintch.services.value.ProductoEstados;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

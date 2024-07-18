@@ -1,6 +1,6 @@
 package com.malagueta.fintch.tables;
 
-import com.malagueta.fintch.domain_service.value.Estado;
+import com.malagueta.fintch.services.value.Estado;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

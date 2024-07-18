@@ -1,6 +1,6 @@
 package com.malagueta.fintch.adapter;
 
-import com.malagueta.fintch.domain_service.value.CreditoSatus;
+import com.malagueta.fintch.services.value.CreditoSatus;
 import com.malagueta.fintch.dto.CreditDTO;
 import com.malagueta.fintch.entity.ClienteEntity;
 import com.malagueta.fintch.entity.CreditEntity;
@@ -86,6 +86,11 @@ private CreditoJDBCRepositoryImpl creditoJDBCRepository;
     @Override
     public List<CreditEntity> findCredtitoByClientID(long clientID) {
         return CreditDTO.convertToEntitys(creditRepositoryJPA.findAllByCliente_Id(clientID));
+    }
+
+    @Override
+    public List<CreditEntity> findCreditoByCriteria(int records, CreditoSatus estado, long clieteID) {
+        return  CreditDTO.convertToEntitys(creditoJDBCRepository.findCreditoByCriteria(records,estado,clieteID));
     }
 
 

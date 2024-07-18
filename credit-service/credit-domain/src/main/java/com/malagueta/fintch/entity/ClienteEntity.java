@@ -24,12 +24,15 @@ public class ClienteEntity {
 
     private String email;
 
-
     private String idDoc;
 
     private  Setor setor;
 
     private String numberDoc;
+
+    private String profissao ="";
+
+    private String empresa="";
 
     public enum Setor{
         PRIVADO("PRIVADO"),PUBLICO("PUBLICO");

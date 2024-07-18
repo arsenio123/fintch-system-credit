@@ -1,6 +1,6 @@
 package com.malagueta.fintch.adapter;
 
-import com.malagueta.fintch.domain_service.value.ProductoEstados;
+import com.malagueta.fintch.services.value.ProductoEstados;
 import com.malagueta.fintch.dto.DTOProduct;
 import com.malagueta.fintch.entity.ProductoEntity;
 import com.malagueta.fintch.port.output.repository.ProductoRepository;

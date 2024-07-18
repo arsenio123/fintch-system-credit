@@ -1,7 +1,5 @@
 package com.malagueta.fintch.report.cron;
 
-import ch.qos.logback.classic.spi.ClassPackagingData;
-import org.aspectj.apache.bcel.util.ClassPath;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.activation.DataHandler;

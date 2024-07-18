@@ -43,6 +43,10 @@ public class Cliente implements Serializable {
     @OneToMany( fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Documento> documento;
 
+    private String profissao ="";
+
+    private String empresa="";
+
 
 
 /*    public long getId() {

@@ -1,6 +1,6 @@
 package com.malagueta.fintch.port.output.repository;
 
-import com.malagueta.fintch.domain_service.value.CreditoSatus;
+import com.malagueta.fintch.services.value.CreditoSatus;
 import com.malagueta.fintch.entity.ClienteEntity;
 import com.malagueta.fintch.entity.CreditEntity;
 
@@ -25,4 +25,6 @@ public interface CreditRepository {
     List<CreditEntity> findByDodateLessThan(LocalDate date);
 
     List<CreditEntity> findCredtitoByClientID(long clientID);
+
+    List<CreditEntity> findCreditoByCriteria(int records, CreditoSatus estado, long clieteID);
 }

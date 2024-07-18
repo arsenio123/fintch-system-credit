@@ -1,11 +1,10 @@
 package com.malagueta.fintch;
 
 import com.malagueta.fintch.api.CreditoAPI;
-import com.malagueta.fintch.audit.EventData;
 import com.malagueta.fintch.config.AppConfig;
 import com.malagueta.fintch.entity.ClienteEntity;
 import com.malagueta.fintch.port.input.services.CreditService;
-import com.malagueta.fintch.domain_service.value.CreditoSatus;
+import com.malagueta.fintch.services.value.CreditoSatus;
 import com.malagueta.fintch.entity.CreditEntity;
 import com.malagueta.fintch.entity.ProductoEntity;
 import com.malagueta.fintch.port.output.repository.*;
@@ -17,7 +16,7 @@ import org.springframework.util.Assert;
 import java.util.List;
 
 @SpringBootTest
-@ContextConfiguration(classes = App.class)
+@ContextConfiguration(classes = ControllerApp.class)
 public class CriateCreditoTest {
     @Autowired
     private CreditRepository creditRepository;
@@ -33,12 +32,30 @@ public class CriateCreditoTest {
     @Autowired
     private EventRepository eventRepository;
 
-   // @Autowired
+    @Autowired
     private CreditoAPI creditoAPI;
     @Autowired
     private AppConfig config;
 
     private CreditService service;
+
+
+    @Test
+    public  void findByCriteriaWithOneVigor(){
+        CreditoSatus satus=CreditoSatus.VIGOR;
+        int clientId=3;
+        int records =4;
+        Assert.isTrue(creditoAPI.findByCriteria(records,satus,clientId).size()==1,"Garanta que os dados devolvam 1 requisto nas condicoes pedidas");;
+    }
+
+
+    @Test
+    public  void findByCriteriaNoCritirea(){
+        CreditoSatus satus=null;
+        int clientId=0;
+        int records =4;
+        Assert.isTrue(creditoAPI.findByCriteria(records,satus,clientId).size()==4,"Garanta que os dados devolvam 1 requisto nas condicoes pedidas");;
+    }
 
     @Test
     public void testCreatCredito(){

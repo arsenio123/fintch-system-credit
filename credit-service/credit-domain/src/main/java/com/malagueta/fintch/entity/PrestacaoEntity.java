@@ -1,11 +1,10 @@
 package com.malagueta.fintch.entity;
 
-import com.malagueta.fintch.domain_service.value.Estado;
+import com.malagueta.fintch.services.value.Estado;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @Setter

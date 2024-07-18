@@ -1,6 +1,6 @@
 package com.malagueta.fintch.port.input.services;
 
-import com.malagueta.fintch.domain_service.value.Estado;
+import com.malagueta.fintch.services.value.Estado;
 import com.malagueta.fintch.entity.PrestacaoEntity;
 import com.malagueta.fintch.port.output.repository.*;
 import org.jetbrains.annotations.NotNull;

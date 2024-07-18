@@ -1,6 +1,6 @@
 package com.malagueta.fintch.repository.impl.jap;
 
-import com.malagueta.fintch.domain_service.value.CreditoSatus;
+import com.malagueta.fintch.services.value.CreditoSatus;
 import com.malagueta.fintch.tables.Cliente;
 import com.malagueta.fintch.tables.Credito;
 import org.springframework.data.jpa.repository.JpaRepository;

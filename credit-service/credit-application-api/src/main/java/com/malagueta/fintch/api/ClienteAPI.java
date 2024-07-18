@@ -1,20 +1,25 @@
 package com.malagueta.fintch.api;
 
-import com.malagueta.fintch.FintechLogg;
+//import com.malagueta.fintch.FintechLogg;
 import com.malagueta.fintch.config.AppConfig;
-import com.malagueta.fintch.domain_service.impl.factory.ClienteServiceFactory;
+import com.malagueta.fintch.services.exception.ServiceException;
+import com.malagueta.fintch.services.cliente.ClienteServiceFactory;
 import com.malagueta.fintch.entity.ClienteEntity;
 import com.malagueta.fintch.port.input.services.ClienteService;
 import com.malagueta.fintch.port.output.repository.ClienteRepository;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 public class ClienteAPI {
 
 
-    Logger log=  FintechLogg.getLogger(ClienteAPI.class);
+    Logger log=
+            LoggerFactory.getLogger(ClienteAPI.class);
+   //FintechLogg.getLogger(ClienteAPI.class);
 
 
     private ClienteService clienteService;
@@ -42,10 +47,16 @@ public class ClienteAPI {
 
     @PostMapping("credito/cliente/create")
     @CrossOrigin
-    public ClienteEntity creatCliente(@RequestBody ClienteEntity clienteEntity){
+    public ClienteEntity creatCliente(@RequestBody ClienteEntity clienteEntity) throws ServiceException {
         log.debug("criating Cliente "+clienteEntity);
-        return clienteService.criarCliente(clienteEntity,clienteRepository);
+        if(clienteEntity.getId()!=0){
+            return clienteService.criarCliente(clienteEntity,clienteRepository);
+        }else {
+            return clienteService.atualizar(clienteEntity, clienteRepository);
+        }
+
     }
+
 
     @GetMapping("credito/cliente")
     @CrossOrigin

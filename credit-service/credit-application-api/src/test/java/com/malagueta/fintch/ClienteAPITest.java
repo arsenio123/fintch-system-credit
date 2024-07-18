@@ -5,8 +5,10 @@ import com.malagueta.fintch.port.input.services.ClienteService;
 import com.malagueta.fintch.port.output.repository.ClienteRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 @SpringBootTest
+@ContextConfiguration(classes = ControllerApp.class)
 public class ClienteAPITest {
 
     private ClienteService clienteService;
