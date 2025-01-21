@@ -77,7 +77,7 @@ public class CreditServiceImpl extends EventSourcing implements CreditService  {
 
         CreditEntity foundCredito=creditRepository.findById(creditoEntity.getId());
 
-        preValidation(creditoEntity);
+        preValidation(creditoEntity, foundCredito);
 
         ClienteEntity cliente=clienteRepository.findById(creditoEntity.getCliente().getId());
         ProductoEntity producto=productoRepository.findById(creditoEntity.getProducto().getId());
@@ -210,13 +210,24 @@ public class CreditServiceImpl extends EventSourcing implements CreditService  {
         }*/
     }
 
-    private void preValidation(CreditEntity creditoEntity) throws ServiceException {
-        if(creditoEntity.getProducto()==null|| creditoEntity.getProducto().getId()==0){
+    private void preValidation(CreditEntity newCreditoEntity, CreditEntity creditOldSatage) throws ServiceException {
+        if(newCreditoEntity.getProducto()==null|| newCreditoEntity.getProducto().getId()==0){
             throw new ServiceException(ErrorCatalog.CREDITO_PRODUCT_CANT_BE_NULL.toString());
         }
-        if(creditoEntity.getCliente()==null|| creditoEntity.getCliente().getId()==0){
+        if(newCreditoEntity.getCliente()==null|| newCreditoEntity.getCliente().getId()==0){
             throw new ServiceException(ErrorCatalog.CREDITO_CLIENT_CANT_BE_NULL.toString());
         }
+
+        if(creditOldSatage!=null){
+            if(creditOldSatage.getEstado().equals(CreditoSatus.VIGOR)
+                    &&
+                    newCreditoEntity.getEstado().equals(CreditoSatus.VIGOR))
+            {
+                throw new ServiceException(ErrorCatalog.CREDITO_EM_VIGOR_SO_PODE_PASSAR_PARA_VENCIDO.toString());
+            }
+        }
+
+
     }
 
 

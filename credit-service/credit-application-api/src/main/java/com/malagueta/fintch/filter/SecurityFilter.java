@@ -49,8 +49,18 @@ public class SecurityFilter  implements Filter {
 
         System.out.println("uri: "+uri);
         System.out.println("accessToken: "+accessToken);
+
+
+
+        //validate the tokken
         GenericHttpResponse autheResponse=validateAutentication(uri,accessToken);
 
+        //permit sweggar to pass
+        if(uri.contains("swagger-ui")
+                ||uri.contains("actuator")
+        ||uri.contains("v3")){
+            autheResponse.setHttpErrorCode(HttpStatus.OK.value());
+        }
 
         System.out.println();
 

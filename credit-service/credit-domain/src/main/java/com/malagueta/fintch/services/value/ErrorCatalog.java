@@ -19,7 +19,9 @@ public enum ErrorCatalog {
     DATA_DA_AMORTIZACAO_DEVE_SER_MAIOR_QUE_DATA_ATUAL("CRED004","Data de amortizacao deve ser mairo que data atual" ),
     DEVE_PREENCHER_AS_DATAS("CRED005","Deve preencher as datas associadas" ),
     DATA_DA_AMORTIZACAO_DEVE_SER_MAIOR_QUE_DATA_DE_INICIO("CRED006","Data de Amortizao deve ser maior que a data de inicio" ),
-    CREDITO_NO_ESTADO_EM_VIGOR_NAO_PODE_TER_CAMPOS_ALTERADOS("CRED007","Credito em vigor nao pode ter campos alterados");
+    CREDITO_NO_ESTADO_EM_VIGOR_NAO_PODE_TER_CAMPOS_ALTERADOS("CRED007","Credito em vigor nao pode ter campos alterados"),
+     CREDITO_EM_VIGOR_SO_PODE_PASSAR_PARA_VENCIDO("CRED006","CREDITOS EM VIGOR SO PODEM PASSAR PARA VENCIDOS"),
+    NAO_PODE_CRIAR_PRESTACAO_PARA_CREDITOS_NAO_EM_VIGOR("PROD004","SO se pode criar prestacao para creditos EM_VIGOR") ;
     @Getter
     private final String code;
     @Getter

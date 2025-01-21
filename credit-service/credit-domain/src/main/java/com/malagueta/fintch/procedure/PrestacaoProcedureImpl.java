@@ -3,6 +3,7 @@ package com.malagueta.fintch.procedure;
 import com.malagueta.fintch.entity.CreditEntity;
 import com.malagueta.fintch.entity.PrestacaoEntity;
 import com.malagueta.fintch.port.output.repository.*;
+import com.malagueta.fintch.services.exception.ServiceException;
 import com.malagueta.fintch.services.prestacao.PrestacaoServiceImpl;
 import com.malagueta.fintch.services.value.CreditoSatus;
 import com.malagueta.fintch.services.value.Estado;
@@ -53,13 +54,17 @@ public class PrestacaoProcedureImpl implements PrestacaoProcedure{
                         prestacaoEntity.setCredito(creditEntity);
                         prestacaoEntity.setEstado(Estado.NAO_PAGA);
 
-                        new PrestacaoServiceImpl().create( prestacaoEntity,
-                                  capitalRepository,
-                                  intrestRepository,
-                                  prestacaoRepository,
-                                  creditRepository,
-                                  productoRepository
-                        ) ;
+                        try {
+                            new PrestacaoServiceImpl().create( prestacaoEntity,
+                                      capitalRepository,
+                                      intrestRepository,
+                                      prestacaoRepository,
+                                      creditRepository,
+                                      productoRepository
+                            ) ;
+                        } catch (ServiceException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
 
             }

@@ -1,5 +1,6 @@
 package com.malagueta.fintch.port.input.services;
 
+import com.malagueta.fintch.services.exception.ServiceException;
 import com.malagueta.fintch.services.value.Estado;
 import com.malagueta.fintch.entity.PrestacaoEntity;
 import com.malagueta.fintch.port.output.repository.*;
@@ -20,7 +21,7 @@ public interface PrestacaoService {
                            @NotNull IntrestRepository intrestServiceDomain,
                            @NotNull PrestacaoRepository prestacaoRepository,
                            @NotNull CreditRepository creditRepository,
-                           @NotNull ProductoRepository productoRepository);
+                           @NotNull ProductoRepository productoRepository) throws ServiceException;
 
     PrestacaoEntity listarPorID(long id,@NotNull PrestacaoRepository prestacaoRepository);
 }

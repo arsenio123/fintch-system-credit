@@ -7,6 +7,7 @@ import com.malagueta.fintch.services.cliente.ClienteServiceFactory;
 import com.malagueta.fintch.entity.ClienteEntity;
 import com.malagueta.fintch.port.input.services.ClienteService;
 import com.malagueta.fintch.port.output.repository.ClienteRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@Tag(name = "cliente API", description = "API for Manage clientes")
 public class ClienteAPI {
 
 

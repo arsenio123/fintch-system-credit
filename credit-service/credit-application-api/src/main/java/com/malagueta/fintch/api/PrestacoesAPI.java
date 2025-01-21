@@ -2,6 +2,7 @@ package com.malagueta.fintch.api;
 
 //import com.malagueta.fintch.FintechLogg;
 import com.malagueta.fintch.config.AppConfig;
+import com.malagueta.fintch.services.exception.ServiceException;
 import com.malagueta.fintch.services.prestacao.PrestacaoServiceFactory;
 import com.malagueta.fintch.services.value.Estado;
 import com.malagueta.fintch.entity.PrestacaoEntity;
@@ -68,7 +69,7 @@ public class PrestacoesAPI {
 
     @PostMapping("prestacao/create")
     @CrossOrigin
-    public PrestacaoEntity create(@RequestBody PrestacaoEntity prestacaoEntity){
+    public PrestacaoEntity create(@RequestBody PrestacaoEntity prestacaoEntity) throws ServiceException {
         log.info("criando a prestacao: "+prestacaoEntity);
         return prestacaoService.create(prestacaoEntity,
                 capitalRepository,

@@ -2,7 +2,10 @@ package com.malagueta.fintch.services.prestacao;
 
 //import com.malagueta.fintch.FintechLogg;
 import com.malagueta.fintch.services.capital.CapitalServiceDomain;
+import com.malagueta.fintch.services.exception.ServiceException;
 import com.malagueta.fintch.services.intrest.IntrestServiceDomain;
+import com.malagueta.fintch.services.value.CreditoSatus;
+import com.malagueta.fintch.services.value.ErrorCatalog;
 import com.malagueta.fintch.services.value.Estado;
 import com.malagueta.fintch.entity.*;
 import com.malagueta.fintch.port.input.services.PrestacaoService;
@@ -50,12 +53,14 @@ public class PrestacaoServiceImpl implements PrestacaoService {
                                   @NotNull PrestacaoRepository prestacaoRepository,
                                   @NotNull CreditRepository creditRepository,
                                   @NotNull ProductoRepository productoRepository
-                                  ) {
+                                  ) throws ServiceException {
         CapitalServiceDomain capitalServiceDomain= new CapitalServiceDomain(capitalRepository);
         IntrestServiceDomain intrestServiceDomain=new IntrestServiceDomain(intrestRepository);
 
         CapitalEntity capital=capitalServiceDomain.getLast(prestacaoEntity.getCredito());
         Double taxa=prestacaoEntity.getCredito().getJurus();
+
+        validaPrestacao(prestacaoEntity);
 
         ProductoEntity productoEntity=productoRepository.findProductoById(
                 creditRepository.findById(prestacaoEntity.getCredito().getId())
@@ -92,6 +97,12 @@ public class PrestacaoServiceImpl implements PrestacaoService {
         //createdPrestacaoEvent.setEvent(newPrestacao);
         //createdPrestacaoEvent.emitte();
         return newPrestacao;
+    }
+
+    private void validaPrestacao(PrestacaoEntity prestacaoEntity) throws SecurityException, ServiceException {
+        if(!prestacaoEntity.getCredito().getEstado().equals(CreditoSatus.VIGOR)){
+            throw new ServiceException(ErrorCatalog.NAO_PODE_CRIAR_PRESTACAO_PARA_CREDITOS_NAO_EM_VIGOR.toString());
+        }
     }
 
     private LocalDate getUltimaPrestacao(CreditEntity creditEntity,
